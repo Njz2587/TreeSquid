@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     #region Stored Data
     private bool isStuck;
+    private bool hasLaunched;
     private int stuckOnPreviousLayer;
     private GameObject stuckOnObject;
     private GameObject previousStuckObject;
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
             if (stickMask == (stickMask | 1 << col.gameObject.layer))
             {
                 isStuck = true;
+                hasLaunched = false;
 
                 stuckOnObject = new GameObject();
                 stuckOnObject.name = "StickPoint";
@@ -129,6 +131,14 @@ public class PlayerController : MonoBehaviour
                 gameObject.transform.parent = stuckOnObject.transform;
                 stuckOnObject.transform.parent = col.gameObject.transform;
             }
+
+            if (hasLaunched)
+            {
+                if (col.gameObject.layer == 12) //Floor
+                {
+                    hasLaunched = false;
+                }
+            }
         }
     }
 
@@ -167,23 +177,27 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Launch
-        if (Input.GetMouseButton(0)) //left mouse down
+        if (hasLaunched == false)
         {
-            if (playerLaunchPower < (MAX_FORCE))
+            if (Input.GetMouseButton(0)) //left mouse down
             {
-                playerLaunchPower += chargeIndex;
+                if (playerLaunchPower < (MAX_FORCE))
+                {
+                    playerLaunchPower += chargeIndex;
+                }
             }
-        }
-        else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
-        {
-            //Play Launch Sound Here
+            else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
+            {
+                //Play Launch Sound Here
 
-            if (isStuck)
-            {
-                ReleaseStick();
+                if (isStuck)
+                {
+                    ReleaseStick();
+                }
+                hasLaunched = true;
+                playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * (playerLaunchPower));
+                playerLaunchPower = 0;
             }
-            playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * (playerLaunchPower));
-            playerLaunchPower = 0;
         }
         #endregion
 
