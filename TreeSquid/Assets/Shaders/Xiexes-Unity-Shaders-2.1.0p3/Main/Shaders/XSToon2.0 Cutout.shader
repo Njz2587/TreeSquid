@@ -97,7 +97,7 @@
 
     SubShader
     {
-        Tags { "RenderType"="TransparentCutout" "Queue"="AlphaTest" }
+        Tags { "RenderType"="TransparentCutout" "Queue"="AlphaTest"}
         Cull [_Culling]
                 Stencil 
         {
