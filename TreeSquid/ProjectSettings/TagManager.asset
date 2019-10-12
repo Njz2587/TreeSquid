@@ -18,8 +18,8 @@ TagManager:
   - NonSquidCollidable
   - Squid
   - Floor
-  - 
-  - 
+  - Ceiling
+  - CameraBounds
   - 
   - 
   - 

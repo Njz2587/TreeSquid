@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public GameObject playerChest; //Bone The Player Will Be Launched From
     public LayerMask stickMask; //Mask Of What Layers The Player Can Stick Too
 
+    public float MAX_FORCE = 330000; //The Value The Player Can Charge Too
+    public float chargeIndex = 4000; //The Index The Value Charges By Each Frame While Held
+
     [Header("UI Settings")]
     [Space(10)]
     public Texture2D progressBarEmpty; //Texture for the empty charge meter
@@ -25,10 +28,8 @@ public class PlayerController : MonoBehaviour
     private float nudgePower;
     private float playerLaunchPower;
 
-    private float MAX_FORCE = 22000 * 30;
-    private float chargeIndex = 8000;
-
-    private float iconSize = 60, uiOffset = 6;
+    private Vector2 iconSize = new Vector2(30, 400);
+    private Vector2 uiOffset = new Vector2(20, 20);
     private float boarderRadius = 5f;
     #endregion
     #endregion
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
         //Launch power
         if (playerLaunchPower > 0)
         {
-            Rect playerBarRect = new Rect(uiOffset + ((iconSize - iconSize / 3f) / 2), (Screen.height - iconSize - (uiOffset * 2)), iconSize / 3f, (playerLaunchPower / 4000) * -1);
+            Rect playerBarRect = new Rect(uiOffset.x, Screen.height - uiOffset.y, Screen.width / iconSize.x, (playerLaunchPower / (MAX_FORCE/(iconSize.y)) * -1));
             GUI.DrawTexture(GetShadowRect(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), 2f, new Rect(1, 1, 1, 1)), whiteBoarder, ScaleMode.StretchToFill, true, 10.0F, Color.white, 0, 0);
             GUI.DrawTexture(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), progressBarEmpty, ScaleMode.StretchToFill, true, 10.0F, Color.black, 0, 0);
             GUI.DrawTexture(playerBarRect, progressBarFull, ScaleMode.StretchToFill, true, 10.0F, Color.red, 0, 0);
@@ -128,7 +129,7 @@ public class PlayerController : MonoBehaviour
                 joint.swing2Limit = softLimit;
                 #endregion
 
-                gameObject.transform.parent = stuckOnObject.transform;
+                //gameObject.transform.parent = stuckOnObject.transform;
                 stuckOnObject.transform.parent = col.gameObject.transform;
             }
 
@@ -138,6 +139,17 @@ public class PlayerController : MonoBehaviour
                 {
                     hasLaunched = false;
                 }
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (hasLaunched)
+        {
+            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude < 0.1f)
+            {
+                hasLaunched = false;
             }
         }
     }
@@ -260,7 +272,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(joint);
         }
-        StartCoroutine(ResetStick(0.1f));
+        StartCoroutine(ResetStick(0.12f));
     }
 
     /// <summary>
