@@ -100,7 +100,7 @@ MonoBehaviour:
   smoothCameraRotation: 6
   cullingLayer:
     serializedVersion: 2
-    m_Bits: 2561
+    m_Bits: 14849
   lockCamera: 0
   cullingSmoother: 0.0001
   isPlayerOneCam: 1
@@ -218,6 +218,8 @@ MonoBehaviour:
   stickMask:
     serializedVersion: 2
     m_Bits: 311
+  MAX_FORCE: 660000
+  chargeIndex: 8000
   progressBarEmpty: {fileID: 2800000, guid: d54967535689c764c961d9a33b7de650, type: 3}
   progressBarFull: {fileID: 2800000, guid: 83427d7c82ac582449f47f281690636b, type: 3}
   whiteBoarder: {fileID: 2800000, guid: 91a692ecb3068d547911796a5cf5993e, type: 3}
