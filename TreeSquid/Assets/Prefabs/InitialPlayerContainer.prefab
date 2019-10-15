@@ -42,8 +42,8 @@ Camera:
   m_GameObject: {fileID: 3278254557072682206}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -100,13 +100,13 @@ MonoBehaviour:
   smoothCameraRotation: 6
   cullingLayer:
     serializedVersion: 2
-    m_Bits: 14849
+    m_Bits: 31233
   lockCamera: 0
   cullingSmoother: 0.0001
   isPlayerOneCam: 1
   rightOffset: 0
-  defaultDistance: 40
-  initialDefaultDistance: 0
+  defaultDistance: 10
+  initialDefaultDistance: 10
   height: 1.4
   smoothFollow: 5
   xMouseSensitivity: 3
@@ -218,8 +218,8 @@ MonoBehaviour:
   stickMask:
     serializedVersion: 2
     m_Bits: 311
-  MAX_FORCE: 660000
-  chargeIndex: 8000
+  MAX_FORCE: 330000
+  chargeIndex: 4000
   progressBarEmpty: {fileID: 2800000, guid: d54967535689c764c961d9a33b7de650, type: 3}
   progressBarFull: {fileID: 2800000, guid: 83427d7c82ac582449f47f281690636b, type: 3}
   whiteBoarder: {fileID: 2800000, guid: 91a692ecb3068d547911796a5cf5993e, type: 3}
@@ -374,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 3278254558546899402}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.33587575, y: 0.33587575, z: 0.33587575}
   m_Children:
   - {fileID: 3278254557072682195}
   - {fileID: 3278254557900243794}
