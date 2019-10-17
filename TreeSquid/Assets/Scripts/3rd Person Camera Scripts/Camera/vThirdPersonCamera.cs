@@ -24,6 +24,8 @@ public class vThirdPersonCamera : MonoBehaviour
     }
     */
 
+    public Vector2 rotateOffset;
+
     #region inspector properties    
 
     public Transform target;
@@ -100,11 +102,12 @@ public class vThirdPersonCamera : MonoBehaviour
 
         targetLookAt = new GameObject("targetLookAt").transform;
         targetLookAt.position = currentTarget.position;
-        targetLookAt.hideFlags = HideFlags.HideInHierarchy;
-        targetLookAt.rotation = currentTarget.rotation;
+        targetLookAt.hideFlags = HideFlags.HideInHierarchy;      
 
-        mouseY = currentTarget.eulerAngles.x + 180;
-        mouseX = currentTarget.eulerAngles.y;
+        mouseY = currentTarget.eulerAngles.x + rotateOffset.x;
+        mouseX = currentTarget.eulerAngles.y + rotateOffset.y;
+
+        targetLookAt.rotation = Quaternion.Euler(mouseY, mouseX, 0);
 
         distance = defaultDistance;
         currentHeight = height;
