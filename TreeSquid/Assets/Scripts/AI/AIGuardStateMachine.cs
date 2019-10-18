@@ -74,7 +74,7 @@ public class AIGuardStateMachine : AIStateMachine
     {
         get { return _isAlarming > 0.1f; }
     }
-
+    public bool PlayerIsVisible { get; set; }
 
 
     protected override void Start()
