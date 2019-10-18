@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public GameObject playerChest; //Bone The Player Will Be Launched From
     public LayerMask stickMask; //Mask Of What Layers The Player Can Stick Too
 
+    public float MAX_FORCE = 330000; //The Value The Player Can Charge Too
+    public float chargeIndex = 4000; //The Index The Value Charges By Each Frame While Held
+
     [Header("UI Settings")]
     [Space(10)]
     public Texture2D progressBarEmpty; //Texture for the empty charge meter
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     #region Stored Data
     private bool isStuck;
+    private bool hasLaunched;
     private int stuckOnPreviousLayer;
     private GameObject stuckOnObject;
     private GameObject previousStuckObject;
@@ -24,10 +28,8 @@ public class PlayerController : MonoBehaviour
     private float nudgePower;
     private float playerLaunchPower;
 
-    private float MAX_FORCE = 22000 * 30;
-    private float chargeIndex = 8000;
-
-    private float iconSize = 60, uiOffset = 6;
+    private Vector2 iconSize = new Vector2(30, 400);
+    private Vector2 uiOffset = new Vector2(20, 20);
     private float boarderRadius = 5f;
     #endregion
     #endregion
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
         //Launch power
         if (playerLaunchPower > 0)
         {
-            Rect playerBarRect = new Rect(uiOffset + ((iconSize - iconSize / 3f) / 2), (Screen.height - iconSize - (uiOffset * 2)), iconSize / 3f, (playerLaunchPower / 4000) * -1);
+            Rect playerBarRect = new Rect(uiOffset.x, Screen.height - uiOffset.y, Screen.width / iconSize.x, (playerLaunchPower / (MAX_FORCE/(iconSize.y)) * -1));
             GUI.DrawTexture(GetShadowRect(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), 2f, new Rect(1, 1, 1, 1)), whiteBoarder, ScaleMode.StretchToFill, true, 10.0F, Color.white, 0, 0);
             GUI.DrawTexture(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), progressBarEmpty, ScaleMode.StretchToFill, true, 10.0F, Color.black, 0, 0);
             GUI.DrawTexture(playerBarRect, progressBarFull, ScaleMode.StretchToFill, true, 10.0F, Color.red, 0, 0);
@@ -87,6 +89,7 @@ public class PlayerController : MonoBehaviour
             if (stickMask == (stickMask | 1 << col.gameObject.layer))
             {
                 isStuck = true;
+                hasLaunched = false;
 
                 stuckOnObject = new GameObject();
                 stuckOnObject.name = "StickPoint";
@@ -126,8 +129,27 @@ public class PlayerController : MonoBehaviour
                 joint.swing2Limit = softLimit;
                 #endregion
 
-                gameObject.transform.parent = stuckOnObject.transform;
+                //gameObject.transform.parent = stuckOnObject.transform;
                 stuckOnObject.transform.parent = col.gameObject.transform;
+            }
+
+            if (hasLaunched)
+            {
+                if (col.gameObject.layer == 12) //Floor
+                {
+                    hasLaunched = false;
+                }
+            }
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (hasLaunched)
+        {
+            if (gameObject.GetComponent<Rigidbody>().velocity.magnitude < 0.1f)
+            {
+                hasLaunched = false;
             }
         }
     }
@@ -167,23 +189,27 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Launch
-        if (Input.GetMouseButton(0)) //left mouse down
+        if (hasLaunched == false)
         {
-            if (playerLaunchPower < (MAX_FORCE))
+            if (Input.GetMouseButton(0)) //left mouse down
             {
-                playerLaunchPower += chargeIndex;
+                if (playerLaunchPower < (MAX_FORCE))
+                {
+                    playerLaunchPower += chargeIndex;
+                }
             }
-        }
-        else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
-        {
-            //Play Launch Sound Here
+            else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
+            {
+                //Play Launch Sound Here
 
-            if (isStuck)
-            {
-                ReleaseStick();
+                if (isStuck)
+                {
+                    ReleaseStick();
+                }
+                hasLaunched = true;
+                playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * (playerLaunchPower));
+                playerLaunchPower = 0;
             }
-            playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * (playerLaunchPower));
-            playerLaunchPower = 0;
         }
         #endregion
 
@@ -192,14 +218,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
-                if (playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance > 0 && playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance - 20 > 0)
+                if (playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance > 0 && playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance - 5 > 0)
                 {
-                    playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance -= 20;
+                    playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance -= 5;
                 }
             }
             else if (playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance != playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().initialDefaultDistance)
             {
-                playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance += 2;
+                playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance += 1;
             }
         }
         #endregion
@@ -246,7 +272,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(joint);
         }
-        StartCoroutine(ResetStick(0.1f));
+        StartCoroutine(ResetStick(0.12f));
     }
 
     /// <summary>
