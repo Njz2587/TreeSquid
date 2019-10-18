@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+
 public class TrackInfo
 {
     public string Name = string.Empty;
@@ -22,24 +23,30 @@ public class AudioPoolItem
 }
 
 
-public class AudioManager : MonoBehaviour, IGameManager
+public class AudioManager : MonoBehaviour
 {
+    // Inherited Members
     public ManagerStatus status { get; private set; }
     public static AudioManager instance;
     // Inspector Assigned Variables
-    [SerializeField] AudioMixer _mixer = null;
-    [SerializeField] int _maxSounds = 10;
+    [SerializeField] AudioMixer _mixer = null; // Audio Mixer to use for volume control
+    [SerializeField] int _maxSounds = 30; // Maximum number of sounds for the pool
+    [SerializeField] Transform _listenerPos; // Transform of the audio listener
 
     // Private Variables
     Dictionary<string, TrackInfo> _tracks = new Dictionary<string, TrackInfo>();
-    List<AudioPoolItem> _pool = new List<AudioPoolItem>();
-    Dictionary<ulong, AudioPoolItem> _activePool = new Dictionary<ulong, AudioPoolItem>();
-    List<LayeredAudioSource> _layeredAudio = new List<LayeredAudioSource>();
+    List<AudioPoolItem> _pool = new List<AudioPoolItem>(); // Audio pool
+    Dictionary<ulong, AudioPoolItem> _activePool = new Dictionary<ulong, AudioPoolItem>(); // Currently active audio pool
+    List<LayeredAudioSource> _layeredAudio = new List<LayeredAudioSource>(); // Audio sources within animation layers
     ulong _idGiver = 0;
-    [SerializeField] Transform _listenerPos;
+
+    // Properties
     public Transform ListenerPosition { get { return _listenerPos; } set { _listenerPos = value; } }
+
+
     void Awake()
     {
+        // Make the object persistent
         DontDestroyOnLoad(gameObject);
         // Handle singleton
         if (instance == null)
@@ -51,6 +58,7 @@ public class AudioManager : MonoBehaviour, IGameManager
             Destroy(gameObject);
         }
     }
+
     void Start()
     {
         // Return if we have no valid mixer reference
@@ -69,7 +77,7 @@ public class AudioManager : MonoBehaviour, IGameManager
             _tracks[group.name] = trackInfo;
         }
 
-        // Generate Pool
+        // Generate Audio Pool
         for (int i = 0; i < _maxSounds; i++)
         {
             // Create GameObject and assigned AudioSource and Parent
@@ -87,16 +95,9 @@ public class AudioManager : MonoBehaviour, IGameManager
             _pool.Add(poolItem);
         }
     }
-    public void Startup()
-    {
-        Debug.Log("Audio manager starting...");
 
-        status = ManagerStatus.Started;
-
-    }
-	
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
         // Update any layered audio sources
         foreach (LayeredAudioSource las in _layeredAudio)
@@ -104,6 +105,8 @@ public class AudioManager : MonoBehaviour, IGameManager
             if (las != null) las.Update();
         }
     }
+    
+    
     public void PlaySound(AudioSource audioSource, AudioClip audioClip)
     {
         audioSource.PlayOneShot(audioClip);
@@ -410,3 +413,4 @@ public class AudioManager : MonoBehaviour, IGameManager
         }
     }
 }
+

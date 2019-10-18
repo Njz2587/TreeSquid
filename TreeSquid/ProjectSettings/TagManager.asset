@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AI Sound Emitter
+  - AI Visual
+  - Head
   layers:
   - Default
   - TransparentFX
@@ -20,12 +23,12 @@ TagManager:
   - Floor
   - Ceiling
   - CameraBounds
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - AI Entity
+  - AI Entity Trigger
+  - AI Trigger
+  - Visual Aggravator
+  - Audio Aggravator
+  - AI Body Part
   - 
   - 
   - 

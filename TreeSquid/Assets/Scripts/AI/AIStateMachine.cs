@@ -94,7 +94,7 @@ public abstract class AIStateMachine : MonoBehaviour
 
     // Public Properties
     public float health { get { return _health; } set { _health = value; } }
-    public bool IsAlive { get; set; }
+    public bool IsAwake { get; set; }
     public bool isTargetReached { get { return _isTargetReached; } }
     public AIStateType currentStateType { get { return _currentStateType; } }
     public bool inMeleeRange { get; set; }
@@ -193,8 +193,6 @@ public abstract class AIStateMachine : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        // Cache the manager component
-        //manager = CoreGameManager.Instance.aiManager;
         // Cache all frequently accessed components
         _transform = transform;
         _animator = GetComponent<Animator>();
