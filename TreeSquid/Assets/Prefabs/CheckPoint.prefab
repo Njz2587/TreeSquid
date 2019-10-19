@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &191460175206138890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 601933480059301394}
+  - component: {fileID: 6490347965485694410}
+  - component: {fileID: 869072050368828929}
+  - component: {fileID: 1650145059721091915}
+  m_Layer: 15
+  m_Name: CheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &601933480059301394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191460175206138890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children:
+  - {fileID: 5331302911896456567}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6490347965485694410
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191460175206138890}
+  m_Mesh: {fileID: 4300000, guid: f97fc119fe5cbd44ab8af8622fb2b8a9, type: 2}
+--- !u!114 &869072050368828929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191460175206138890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa10ce8fd7a6a9f4e87a0c0cef898241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetObjects: []
+  drawObjects:
+  - drawGizmo: 1
+    gizmoDrawMode: 0
+    gizmoMeshMode: 0
+    drawColor: {r: 0.0023497343, g: 1, b: 0, a: 0.5254902}
+    filterMesh: {fileID: 6490347965485694410}
+    skinMesh: {fileID: 0}
+    drawTransform: {fileID: 601933480059301394}
+    drawRotationOverride: {x: 0, y: 0, z: 0}
+    defaultColor: {r: 0, g: 1, b: 0, a: 1}
+    FilterMode: 1
+    SkinMode: 0
+  - drawGizmo: 1
+    gizmoDrawMode: 0
+    gizmoMeshMode: 1
+    drawColor: {r: 0.88375807, g: 1, b: 0, a: 0.38431373}
+    filterMesh: {fileID: 0}
+    skinMesh: {fileID: 0}
+    drawTransform: {fileID: 5331302911896456567}
+    drawRotationOverride: {x: 0, y: 90, z: 0}
+    defaultColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    FilterMode: 0
+    SkinMode: 1
+  CheckPointID: 0
+--- !u!65 &1650145059721091915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191460175206138890}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1222423588478280583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5331302911896456567}
+  - component: {fileID: 6491782568019129159}
+  m_Layer: 15
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5331302911896456567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222423588478280583}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.6259422, y: 0.5748154, z: 0.5169017}
+  m_Children: []
+  m_Father: {fileID: 601933480059301394}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &6491782568019129159
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222423588478280583}
+  m_Mesh: {fileID: 4300000, guid: f97fc119fe5cbd44ab8af8622fb2b8a9, type: 2}
