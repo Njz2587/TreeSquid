@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     public Texture2D progressBarFull; //Texture for the charging meter
     public Texture2D whiteBoarder; //Boarder around meter
 
+    [HideInInspector]
+    public PlayerController instance; //Singleton
+
     #region Stored Data
     private bool isStuck;
     private bool hasLaunched;
@@ -35,11 +38,24 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// Sets up the class singleton
+    /// </summary>
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    /// <summary>
     /// Start is called before the first frame update
     /// </summary>
     private void Start()
     {
         nudgePower = MAX_FORCE / 18;
+        PlayerVars.instance.player = gameObject;
+        PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
     }
 
     /// <summary>
@@ -47,7 +63,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        PlayerControls();
+        if (PlayerVars.instance.sceneState == PlayerVars.SceneState.PlayerActive)
+        {
+            PlayerControls();
+        }
     }
 
     /// <summary>
@@ -229,6 +248,16 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
+    }
+
+    /// <summary>
+    /// Resets all of the player's charge and stick values
+    /// </summary>
+    public void ResetPlayerCharge()
+    {
+        playerLaunchPower = 0;
+        hasLaunched = true;
+        ReleaseStick();
     }
 
     #region Helper Methods
