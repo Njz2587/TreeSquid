@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 6563461924233002326}
   - component: {fileID: 8494242929392252230}
   - component: {fileID: 8701555978982465779}
+  - component: {fileID: 2067716286991227142}
+  - component: {fileID: 5114359660692728849}
+  - component: {fileID: 800827561606953258}
+  - component: {fileID: 7130127265055176728}
   m_Layer: 0
   m_Name: SM_Plant_Mushrooms_01
   m_TagString: Untagged
@@ -125,3 +129,55 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.20227434, y: 0.070213005, z: 0.22172666}
   m_Center: {x: 0.063605785, y: 0.16154909, z: 0.066744484}
+--- !u!65 &2067716286991227142
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503568836632389058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15193677, y: 0.043794475, z: 0.19555375}
+  m_Center: {x: 0.039332174, y: -0.18949406, z: 0.018435946}
+--- !u!65 &5114359660692728849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503568836632389058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18649627, y: 0.06147498, z: 0.26304656}
+  m_Center: {x: -0.076791465, y: 0.073517255, z: 0.052182328}
+--- !u!65 &800827561606953258
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503568836632389058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.27221668, y: 0.081250355, z: 0.31142014}
+  m_Center: {x: 0.013839811, y: -0.033329885, z: 0.07636906}
+--- !u!65 &7130127265055176728
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6503568836632389058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.13243091, y: 0.037356377, z: 0.1904752}
+  m_Center: {x: -0.087147884, y: -0.2412626, z: 0.015896607}
