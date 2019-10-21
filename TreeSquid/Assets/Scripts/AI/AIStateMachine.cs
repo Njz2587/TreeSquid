@@ -81,7 +81,6 @@ public abstract class AIStateMachine : MonoBehaviour
     [SerializeField]
     [Range(0, 15)]
     protected float _stoppingDistance = 1.0f;
-    [SerializeField] [Range(0, 100.0f)] float _health = 10.0f;
 
     // Layered Audio Control
     protected ILayeredAudioSource _layeredAudioSource = null;
@@ -93,7 +92,6 @@ public abstract class AIStateMachine : MonoBehaviour
     protected Transform _transform = null;
 
     // Public Properties
-    public float health { get { return _health; } set { _health = value; } }
     public bool IsAwake { get; set; }
     public bool isTargetReached { get { return _isTargetReached; } }
     public AIStateType currentStateType { get { return _currentStateType; } }
