@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3653863365260912645}
   - component: {fileID: 3653863365259898405}
   - component: {fileID: 3653863364905003326}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SM_Env_Ceiling_Stone_Flat_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}

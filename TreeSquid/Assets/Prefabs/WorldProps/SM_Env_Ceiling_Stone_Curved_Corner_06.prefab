@@ -17,6 +17,9 @@ GameObject:
   - component: {fileID: 2912158314256041739}
   - component: {fileID: 5075372777250135840}
   - component: {fileID: 6779500806974022687}
+  - component: {fileID: 734545014097920343}
+  - component: {fileID: 2542072812248081409}
+  - component: {fileID: 5871656449524972587}
   m_Layer: 13
   m_Name: SM_Env_Ceiling_Stone_Curved_Corner_06
   m_TagString: Untagged
@@ -161,3 +164,42 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.0162086, y: 0.977396, z: 0.9669075}
   m_Center: {x: -2.5081043, y: 3.870967, z: 1.2890869}
+--- !u!65 &734545014097920343
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604815710584957415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8283515, y: 0.77923393, z: 5.0162086}
+  m_Center: {x: -4.6020327, y: 2.855569, z: 2.4918957}
+--- !u!65 &2542072812248081409
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604815710584957415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2524557, y: 1.1218147, z: 5.0162086}
+  m_Center: {x: -4.1697683, y: 3.5606003, z: 2.4918957}
+--- !u!65 &5871656449524972587
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6604815710584957415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5279503, y: 0.95719147, z: 5.0162086}
+  m_Center: {x: -3.1131043, y: 4.5368843, z: 2.4918957}
