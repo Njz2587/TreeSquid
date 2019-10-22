@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4721795577052367013}
   - component: {fileID: 4721795577050926975}
   - component: {fileID: 5062281874030485974}
+  - component: {fileID: 218213434973983702}
   m_Layer: 0
   m_Name: SM_Prop_Goblin_Meat_01 (1)
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4721795577049232507}
   m_LocalRotation: {x: -0, y: 0.24034342, z: -0, w: 0.9706879}
   m_LocalPosition: {x: -1.8732187, y: -9.886878, z: 5.816139}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -92,3 +93,19 @@ CapsuleCollider:
   m_Height: 1.22
   m_Direction: 2
   m_Center: {x: -0.046979904, y: 0.028263345, z: -0.0000038146973}
+--- !u!54 &218213434973983702
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721795577049232507}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

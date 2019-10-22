@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 336285896260558752}
   - component: {fileID: 4871053191034794776}
   - component: {fileID: 3501799355652344199}
+  - component: {fileID: -441008339255283877}
   m_Layer: 0
   m_Name: SM_Item_Potion_06
   m_TagString: Untagged
@@ -106,3 +107,19 @@ CapsuleCollider:
   m_Height: 0.40714192
   m_Direction: 1
   m_Center: {x: 0.00000008940697, y: 0.028, z: 0.0000009536743}
+--- !u!54 &-441008339255283877
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336285896262559642}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
