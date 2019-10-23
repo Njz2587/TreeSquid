@@ -10,6 +10,7 @@ public class AIGuardState_Idle : AIGuardState
     // Private Variables
     float _idleTime = 0.0f;
     float _timer = 0.0f;
+
     /// <summary>
     /// Returns the type of the state
     /// </summary>
@@ -18,10 +19,14 @@ public class AIGuardState_Idle : AIGuardState
     {
         return AIStateType.Idle;
     }
+
+    /// <summary>
+    /// Initializes state machine for Idle state
+    /// </summary>
     public override void OnEnterState()
     {
         base.OnEnterState();
-        Debug.Log("Entered idle");
+        //Debug.Log("Entered idle");
         // Make sure the state machine is valid
         if (_guardStateMachine == null)
             return;
@@ -39,7 +44,7 @@ public class AIGuardState_Idle : AIGuardState
     }
 
     /// <summary>
-    /// Performs all checks on each update frame
+    /// Essentially the engine of the state, performs all checks on each update frame
     /// </summary>
     /// <returns></returns>
     public override AIStateType OnUpdate()
@@ -69,8 +74,12 @@ public class AIGuardState_Idle : AIGuardState
         // Wander if idle time has been exceeded
         if (_timer > _idleTime)
         {
-            // Put Guard into Wander State
-            return AIStateType.Wander;
+            // Set waypoint destination
+            _guardStateMachine.navAgent.SetDestination(_guardStateMachine.GetWaypointPosition(false));
+            // Resume NavMeshAgent
+            _guardStateMachine.navAgent.isStopped = true;
+            // Put Guard into Patrol State
+            return AIStateType.Patrol;
         }
         // By default, keep Guard in Idle State
         return AIStateType.Idle;

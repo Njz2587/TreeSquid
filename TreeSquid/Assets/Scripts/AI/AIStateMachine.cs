@@ -45,13 +45,11 @@ public struct AITarget
     }
 }
 
-// ----------------------------------------------------------------------
-// Class	:	AIStateMachine
-// Desc		:	Base class for all AI State Machines
-// ----------------------------------------------------------------------
+/// <summary>
+/// Base class for all AI State Machines
+/// </summary>
 public abstract class AIStateMachine : MonoBehaviour
 {
-    public AIManager manager;
     // Public Variables
     public AITarget VisualThreat = new AITarget();
     public AITarget AudioThreat = new AITarget();
@@ -325,7 +323,11 @@ public abstract class AIStateMachine : MonoBehaviour
                 _currentWaypoint = 0;
         }
         else if (increment)
+        {
+            Debug.Log("Next Waypoint called!");
             NextWaypoint();
+        }
+
 
         // Fetch the new waypoint from the waypoint list
         if (_waypointNetwork.Waypoints[_currentWaypoint] != null)
@@ -362,7 +364,12 @@ public abstract class AIStateMachine : MonoBehaviour
             }
         }
         else
+        {
+            Debug.Log("Next Waypoint Called: " + _currentWaypoint);
             _currentWaypoint = _currentWaypoint == _waypointNetwork.Waypoints.Count - 1 ? 0 : _currentWaypoint + 1;
+            Debug.Log("New Waypoint: " + _currentWaypoint);
+        }
+       
     }
 
     /// <summary>
@@ -595,26 +602,7 @@ public abstract class AIStateMachine : MonoBehaviour
         //Debug.Log("Adding Root Motion Request "+rootPosition+"   and    "+rootRotation);
     }
 
-    public virtual void TakeDamage(float damage)
-    {
-        // Decrement health
-    }
-    /*
-    public virtual void TakeDamage(Vector3 position, Vector3 force, int damage, Rigidbody bodyPart, PlayerManager playerManager, int hitDirection = 0)
-    {
 
-    }
-    */
-
-
-    // -----------------------------------------------------------
-    // Name	:	OnDestory
-    // Desc	:	We must remember to unregister our audio sources
-    //			when we are destroyed as the AudioManager
-    //			is a multi-scene object. Otherwise it
-    //			will still try to update audio layers
-    //			to audio sources which have been destroyed
-    // ------------------------------------------------------------
     /// <summary>
     /// Called upon the destruction of the object
     /// Unregisters the audio sources

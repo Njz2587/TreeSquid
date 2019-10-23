@@ -13,8 +13,8 @@ public abstract class AIGuardState : AIState
     void Awake()
     {
         // Get a mask for line of sight testing with the player
-        _playerLayerMask = LayerMask.GetMask("Player", "AI Body Part") + 1;
-        _visualLayerMask = LayerMask.GetMask("Player", "AI Body Part", "Visual Aggravator") + 1;
+        _playerLayerMask = LayerMask.GetMask("Squid", "AI Body Part") + 1;
+        _visualLayerMask = LayerMask.GetMask("Squid", "AI Body Part", "Visual Aggravator") + 1;
 
         // Get the layer index of the AI Body Part layer
         _bodyPartLayer = LayerMask.NameToLayer("AI Body Part");
@@ -61,6 +61,8 @@ public abstract class AIGuardState : AIState
                     RaycastHit hitInfo;
                     if (ColliderIsVisible(other, out hitInfo, _playerLayerMask))
                     {
+                        // Player is spotted, play the alarm effect!
+                        StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
                         _guardStateMachine.PlayerIsVisible = true;
                         // Yep...it's close and in our FOV and we have line of sight so store as the current most dangerous threat
                         _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
@@ -127,7 +129,8 @@ public abstract class AIGuardState : AIState
                 // if We can hear it and is it closer then what we previously have stored
                 if (distanceToThreat < _guardStateMachine.AudioThreat.distance)
                 {
-                    //Debug.Log("Skeleton can hear audio threat!");
+                    // Guard is alerted, play the alert effect
+                    StartCoroutine(_guardStateMachine.ShowAlertSymbol());
                     // Most dangerous Audio Threat so far
                     _guardStateMachine.AudioThreat.Set(AITargetType.Audio, other, soundPos, distanceToThreat);
                 }
@@ -135,7 +138,7 @@ public abstract class AIGuardState : AIState
         }
     }
     /// <summary>
-    /// Tests the passed collider against the Sword Husk's FOV and uses the passed layer mask for line of sight testing
+    /// Tests the passed collider against the Guard's FOV and uses the passed layer mask for line of sight testing
     /// </summary>
     /// <param name="other"></param>
     /// <param name="hitInfo"></param>
@@ -146,7 +149,7 @@ public abstract class AIGuardState : AIState
         // Let's make sure we have something to return
         hitInfo = new RaycastHit();
 
-        // We need the state machine to be an AISkeletonStateMachine
+        // We need the state machine to be an AIGuardStateMachine
         if (_guardStateMachine == null) return false;
 
         // Calculate the angle between the sensor origin and the direction of the collider

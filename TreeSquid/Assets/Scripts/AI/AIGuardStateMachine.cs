@@ -19,34 +19,32 @@ public class AIGuardStateMachine : AIStateMachine
     [SerializeField] [Range(0.0f, 1.0f)] float _sight = 0.5f;
     [SerializeField] [Range(0.0f, 1.0f)] float _hearing = 1.0f;
     [SerializeField] [Range(0.0f, 1.0f)] float _aggression = 0.5f;
-    [SerializeField] [Range(0, 100)] int _health = 100;
+    [SerializeField] [Range(0, 100)] int _minForceToKnockOut = 10;
     [SerializeField] [Range(0.0f, 1.0f)] float _intelligence = 0.5f;
     [SerializeField] [Range(0.0f, 50.0f)] float _alarmRadius = 20.0f;
+    [SerializeField] [Range(0.0f, 1.0f)] float _alarmChance = 1.0f;
     [SerializeField] AIAlarmPosition _alarmPosition = AIAlarmPosition.Entity;
     [SerializeField] AISoundEmitter _alarmPrefab = null;
     [SerializeField] AudioCollection _ragdollCollection = null;
 
-    [SerializeField] float _replenishRate = 0.5f;
-    [SerializeField] float _depletionRate = 0.1f;
-    [SerializeField] float _reanimationBlendTime = 1.5f;
-    [SerializeField] float _reanimationWaitTime = 3.0f;
+    [SerializeField] [Range(0.0f, 1.0f)] float _symbolDuration = 0.25f;
     [SerializeField] LayerMask _geometryLayers = 0;
+
+    [SerializeField] GameObject _alertSymbol;
+    [SerializeField] GameObject _alarmSymbol;
+    [SerializeField] GameObject _torchObject;
 
     // Private Variables
     private int _seeking = 0;
     private int _attackType = 0;
     private float _speed = 0.0f;
     private float _isAlarming = 0.0f;
+    private bool _isInvestigating = false;
+    private bool _swordDrawn = false;
     private float _nextRagdollSoundTime = 0.0f;
     // Ragdoll Stuff
     private AIBoneControlType _boneControlType = AIBoneControlType.Animated;
     private List<BodyPartSnapshot> _bodyPartSnapShots = new List<BodyPartSnapshot>();
-    private float _ragdollEndTime = float.MinValue;
-    private Vector3 _ragdollHipPosition;
-    private Vector3 _ragdollFeetPosition;
-    private Vector3 _ragdollHeadPosition;
-    private IEnumerator _reanimationCoroutine = null;
-    private float _mecanimTransitionTime = 0.1f;
     // Animator Hashes
     private int _speedHash = Animator.StringToHash("Speed");
     private int _seekingHash = Animator.StringToHash("Seeking");
@@ -62,9 +60,10 @@ public class AIGuardStateMachine : AIStateMachine
     public float hearing { get { return _hearing; } }
     public float sight { get { return _sight; } }
     public float intelligence { get { return _intelligence; } }
-    public int health { get { return _health; } set { _health = value; } }
+    public int minForceToKnockOut { get { return _minForceToKnockOut; } set { _minForceToKnockOut = value; } }
     public int attackType { get { return _attackType; } set { _attackType = value; } }
     public int seeking { get { return _seeking; } set { _seeking = value; } }
+    public float alarmChance { get { return _alarmChance; } }
     public float speed
     {
         get { return _speed; }
@@ -74,14 +73,28 @@ public class AIGuardStateMachine : AIStateMachine
     {
         get { return _isAlarming > 0.1f; }
     }
+    public bool isInvestigating
+    {
+        get { return _isInvestigating; }
+        set { _isInvestigating = value; }
+    }
+    public bool swordDrawn
+    {
+        get { return _swordDrawn; }
+        set { _swordDrawn = value; }
+    }
     public bool PlayerIsVisible { get; set; }
-
+    public GameObject AlertSymbol { get { return _alertSymbol; } }
+    public GameObject AlarmSymbol { get { return _alarmSymbol; } }
+    public GuardHeadControl HeadControl { get; set; }
 
     protected override void Start()
     {
         // Call base Start functionality
         base.Start();
 
+        // Set IsAwake to true by default
+        IsAwake = true;
         // Make sure animator is valid
         if (_animator != null)
         {
@@ -109,16 +122,25 @@ public class AIGuardStateMachine : AIStateMachine
         // Call base Update functionality
         base.Update();
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsAwake)
+            {
+                KnockOut();
+            }
+        }
         // Make sure the animator is valid, and if so, update animator with state machine values
-        if (_animator != null)
+        if (_animator != null && IsAwake)
         {
             _animator.SetFloat(_speedHash, _speed);
             _animator.SetInteger(_seekingHash, _seeking);
             _animator.SetInteger(_attackHash, _attackType);
             _animator.SetInteger(_stateHash, (int)_currentStateType);
 
-            // Are we screaming or not
+            /*
+            // Are we alarming or not
             _isAlarming= IsLayerActive("Cinematic") ? 0.0f : _animator.GetFloat(_alarmingHash);
+            */
 
         }
     }
@@ -134,7 +156,12 @@ public class AIGuardStateMachine : AIStateMachine
         // Before anything, make sure the guard is awake
         if (IsAwake)
         {
-            /* ------ TO-DO: Calculate whether or not the force is enough to knock out the enemy */
+            // Check if the magnitude of the force is enough to knock out the guard
+            if (inputtedForce.magnitude >= minForceToKnockOut)
+            {
+                // Knock out the guard
+                KnockOut();
+            }
         }
     }
 
@@ -149,12 +176,8 @@ public class AIGuardStateMachine : AIStateMachine
             // Set IsAwake to false
             IsAwake = false;
             _currentState = null;
-            // Disable the animator
-            _animator.enabled = false;
-            _navAgent.enabled = false;
+
             
- 
-           
             // Activate the ragdoll!
             foreach (Rigidbody body in _bodyParts)
             {
@@ -164,6 +187,25 @@ public class AIGuardStateMachine : AIStateMachine
             // Disable the animator
             _animator.enabled = false;
             _navAgent.enabled = false;
+
+            // Disable the GuardHeadControl component
+            HeadControl.enabled = false;
+            // Check if we have a torch
+            if (_torchObject)
+            {
+                // Unparent the torch
+                _torchObject.transform.parent = null;
+                // Get the rigidbody
+                Rigidbody torchRigidbody = _torchObject.GetComponent<Rigidbody>();
+                // Make sure the rigidbody is valid
+                if (torchRigidbody)
+                {
+                    // Make it not kinematic
+                    torchRigidbody.isKinematic = false;
+                    // Enable gravity
+                    torchRigidbody.useGravity = true;
+                }
+            }
         }
     }
 
@@ -181,6 +223,22 @@ public class AIGuardStateMachine : AIStateMachine
         if (screamEmitter != null)
             screamEmitter.SetRadius(_alarmRadius);
         return true;
+    }
+    #endregion
+
+    #region Effect-Related Functionality
+    public IEnumerator ShowAlertSymbol()
+    {
+        _alertSymbol.SetActive(true);
+        yield return new WaitForSeconds(_symbolDuration);
+        _alertSymbol.SetActive(false);
+    }
+
+    public IEnumerator ShowAlarmSymbol()
+    {
+        _alarmSymbol.SetActive(true);
+        yield return new WaitForSeconds(_symbolDuration);
+        _alarmSymbol.SetActive(false);
     }
     #endregion
 }
