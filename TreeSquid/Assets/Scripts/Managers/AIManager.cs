@@ -10,6 +10,7 @@ public class AIManager : MonoBehaviour, IGameManager
     public ManagerStatus status { get; private set; }
     // Singleton
     public static AIManager Instance;
+    public GameObject GuardObject;
     // Private variables
     private Dictionary<int, AIStateMachine> _stateMachines = new Dictionary<int, AIStateMachine>();
 
@@ -17,7 +18,9 @@ public class AIManager : MonoBehaviour, IGameManager
     {
         if (!AIManager.Instance)
         {
+            Debug.Log("Setting Singleton");
             Instance = this;
+            GuardObject.SetActive(true);
         }
         else
         {
