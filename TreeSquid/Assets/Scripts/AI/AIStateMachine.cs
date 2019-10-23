@@ -324,7 +324,7 @@ public abstract class AIStateMachine : MonoBehaviour
         }
         else if (increment)
         {
-            Debug.Log("Next Waypoint called!");
+            //Debug.Log("Next Waypoint called!");
             NextWaypoint();
         }
 
@@ -365,9 +365,9 @@ public abstract class AIStateMachine : MonoBehaviour
         }
         else
         {
-            Debug.Log("Next Waypoint Called: " + _currentWaypoint);
+            //Debug.Log("Next Waypoint Called: " + _currentWaypoint);
             _currentWaypoint = _currentWaypoint == _waypointNetwork.Waypoints.Count - 1 ? 0 : _currentWaypoint + 1;
-            Debug.Log("New Waypoint: " + _currentWaypoint);
+            //Debug.Log("New Waypoint: " + _currentWaypoint);
         }
        
     }

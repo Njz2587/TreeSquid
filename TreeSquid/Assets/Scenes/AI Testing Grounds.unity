@@ -9794,17 +9794,12 @@ PrefabInstance:
     - target: {fileID: 1743497850784073123, guid: 45da4ea781146d44bac56c1d7d46bc75,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1743497850783877318, guid: 45da4ea781146d44bac56c1d7d46bc75,
         type: 3}
       propertyPath: _waypointNetwork
       value: 
       objectReference: {fileID: 1064917201}
-    - target: {fileID: 1743497850783877318, guid: 45da4ea781146d44bac56c1d7d46bc75,
-        type: 3}
-      propertyPath: _currentWaypoint
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45da4ea781146d44bac56c1d7d46bc75, type: 3}
