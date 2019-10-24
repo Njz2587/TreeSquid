@@ -189,6 +189,7 @@ public abstract class AIStateMachine : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
+        Debug.Log("AI State Machine Awake");
         // Cache all frequently accessed components
         _transform = transform;
         _animator = GetComponent<Animator>();
@@ -221,6 +222,7 @@ public abstract class AIStateMachine : MonoBehaviour
                 {
                     // Add this body part to the list of body parts
                     _bodyParts.Add(bodyPart);
+                    Debug.Log("" + AIManager.Instance.gameObject);
                     // Register the state machine
                     AIManager.Instance.RegisterAIStateMachine(bodyPart.GetInstanceID(), this);
                 }
@@ -244,6 +246,7 @@ public abstract class AIStateMachine : MonoBehaviour
         // Set the sensor trigger's parent to this state machine
         if (_sensorTrigger != null)
         {
+            Debug.Log("Getting sensor shit");
             AISensor sensorScript = _sensorTrigger.GetComponent<AISensor>();
             if (sensorScript != null)
             {
