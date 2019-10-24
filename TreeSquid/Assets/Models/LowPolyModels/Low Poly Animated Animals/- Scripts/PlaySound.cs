@@ -23,7 +23,7 @@ namespace LowPolyAnimalPack
     {
       if (animalSound)
       {
-        AudioManager.PlaySound(animalSound, transform.position);
+        AudioManagerAnimals.PlaySound(animalSound, transform.position);
       }
     }
 
@@ -31,7 +31,7 @@ namespace LowPolyAnimalPack
     {
       if (walking)
       {
-        AudioManager.PlaySound(walking, transform.position);
+        AudioManagerAnimals.PlaySound(walking, transform.position);
       }
     }
 
@@ -39,7 +39,7 @@ namespace LowPolyAnimalPack
     {
       if (eating)
       {
-        AudioManager.PlaySound(eating, transform.position);
+        AudioManagerAnimals.PlaySound(eating, transform.position);
       }
     }
 
@@ -47,7 +47,7 @@ namespace LowPolyAnimalPack
     {
       if (running)
       {
-        AudioManager.PlaySound(running, transform.position);
+        AudioManagerAnimals.PlaySound(running, transform.position);
       }
     }
 
@@ -55,7 +55,7 @@ namespace LowPolyAnimalPack
     {
       if (attacking)
       {
-        AudioManager.PlaySound(attacking, transform.position);
+        AudioManagerAnimals.PlaySound(attacking, transform.position);
       }
     }
 
@@ -63,7 +63,7 @@ namespace LowPolyAnimalPack
     {
       if (death)
       {
-        AudioManager.PlaySound(death, transform.position);
+        AudioManagerAnimals.PlaySound(death, transform.position);
       }
     }
 
@@ -71,7 +71,7 @@ namespace LowPolyAnimalPack
     {
       if (sleeping)
       {
-        AudioManager.PlaySound(sleeping, transform.position);
+        AudioManagerAnimals.PlaySound(sleeping, transform.position);
       }
     }
   }

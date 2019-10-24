@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Invector.CharacterController;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,15 +20,24 @@ public class PlayerController : MonoBehaviour
     public Texture2D progressBarFull; //Texture for the charging meter
     public Texture2D whiteBoarder; //Boarder around meter
 
+    [Header("Audio Settings")]
+    [Space(10)]
+    public AudioSource audioSource;
+    public AudioClip squidPop;
+    public List<AudioClip> squidNudgeSounds;
+    public List<AudioClip> squidSplatSounds;
+
     [HideInInspector]
     public PlayerController instance; //Singleton
 
     #region Stored Data
     private bool isStuck;
     private bool hasLaunched;
+    private bool isNudging;
     private int stuckOnPreviousLayer;
     private GameObject stuckOnObject;
     private GameObject previousStuckObject;
+    private Vector3 ignoreVector = new Vector3(1, 0, 1);
 
     private float nudgePower;
     private float playerLaunchPower;
@@ -34,6 +45,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 iconSize = new Vector2(30, 400);
     private Vector2 uiOffset = new Vector2(20, 20);
     private float boarderRadius = 5f;
+
+    private float defaultVolume;
+    private enum SquidSound { Nudge, Splat, Launch, Detatch}
     #endregion
     #endregion
 
@@ -54,6 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         nudgePower = MAX_FORCE / 18;
+        defaultVolume = audioSource.volume;
         PlayerVars.instance.player = gameObject;
         PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
     }
@@ -160,8 +175,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        PlaySquidSound(SquidSound.Nudge, ScaleVolumeToForce((col.impulse /Time.fixedDeltaTime).magnitude, 100000));
     }
 
+    /// <summary>
+    /// Reset the squid if they stayput for too long
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionStay(Collision collision)
     {
         if (hasLaunched)
@@ -179,29 +200,37 @@ public class PlayerController : MonoBehaviour
     private void PlayerControls()
     {
         #region Nudge
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
-            string keyCode = Input.inputString;
-
-            ReleaseStick();
+            if(isStuck)
+            {
+                PlaySquidSound(SquidSound.Detatch, defaultVolume);
+                ReleaseStick();
+            }
 
             if (playerChest.GetComponent<Rigidbody>().velocity.magnitude < 10)
             {
-                if (keyCode == "w")
+                if (playerChest.GetComponent<Rigidbody>().velocity.magnitude > 1)
                 {
-                    playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * (nudgePower));
+                    PlaySquidSound(SquidSound.Nudge, defaultVolume/2);           
                 }
-                else if (keyCode == "a")
+
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    playerChest.GetComponent<Rigidbody>().AddForce((playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.right * -1) * (nudgePower));
+                    Debug.Log(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector));
+                    playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector) * (nudgePower));
                 }
-                else if (keyCode == "d")
+                else if (Input.GetKeyDown(KeyCode.A))
                 {
-                    playerChest.GetComponent<Rigidbody>().AddForce(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.right * (nudgePower));
+                    playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.right * -1), ignoreVector) * (nudgePower));
                 }
-                else if (keyCode == "s")
+                else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    playerChest.GetComponent<Rigidbody>().AddForce((playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * -1) * (nudgePower));
+                    playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.right), ignoreVector) * (nudgePower));
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward * -1), ignoreVector) * (nudgePower));
                 }
             }
         }
@@ -220,6 +249,7 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
             {
                 //Play Launch Sound Here
+                PlaySquidSound(SquidSound.Launch, ScaleVolumeToForce(playerLaunchPower, MAX_FORCE));
 
                 if (isStuck)
                 {
@@ -248,6 +278,21 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
+
+        #region Commands
+        if (Input.GetKey(KeyCode.Slash))
+        {
+            string comboKeyCode = Input.inputString;
+            if (comboKeyCode == "r")
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (comboKeyCode == "c")
+            {
+                PlayerVars.instance.ResetToCheckPoint(0);
+            }
+        }
+        #endregion
     }
 
     /// <summary>
@@ -261,6 +306,32 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Helper Methods
+
+    /// <summary>
+    /// Depending on the passed enum, plays a squid soundeffect
+    /// </summary>
+    /// <param name="soundTypeToPlay"></param>
+    /// <param name="volume"></param>
+    private void PlaySquidSound(SquidSound soundTypeToPlay, float volume)
+    {
+        audioSource.volume = volume;
+        switch(soundTypeToPlay)
+        {
+            case SquidSound.Detatch:
+                if(squidPop && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidPop); }
+                break;
+            case SquidSound.Nudge:
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0 && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }                    
+                break;
+            case SquidSound.Splat:
+                if (squidSplatSounds != null && squidSplatSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidSplatSounds[Random.Range(0, squidSplatSounds.Count)]); }               
+                break;
+            case SquidSound.Launch:
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }
+                break;
+        }
+    }
+
     /// <summary>
     /// Resets the player's ability to stick to walls
     /// </summary>
@@ -302,6 +373,77 @@ public class PlayerController : MonoBehaviour
             Destroy(joint);
         }
         StartCoroutine(ResetStick(0.12f));
+    }
+
+    /// <summary>
+    /// Scales a volume based on a force
+    /// </summary>
+    /// <param name="force"></param>
+    /// <param name="maxForce"></param>
+    /// <returns></returns>
+    private float ScaleVolumeToForce(float force, float maxForce)
+    {
+        //Debug.Log(gameObject.name + " Impacted With With A Force Of " + force);
+        float impactVolume = 0.0f;
+
+        if (force > 0.05)
+        {
+            impactVolume = (force / maxForce);
+
+            if (impactVolume > 1.0)
+            {
+                impactVolume = 1.0f;
+            }
+
+            if (impactVolume < 0.0)
+            {
+                impactVolume = 0.0f;
+            }
+        }
+
+        return impactVolume;
+    }
+
+    /// <summary>
+    /// Returns a Unit Direction Vector exactly 1.0
+    /// </summary>
+    /// <param name="vectorToExtract"></param>
+    /// <returns></returns>
+    private Vector3 GetUnitDirectionVector(Vector3 vectorToExtract)
+    {
+        return new Vector3(GetValueDirection(vectorToExtract.x), GetValueDirection(vectorToExtract.y), GetValueDirection(vectorToExtract.z));
+    }
+
+    /// <summary>
+    /// Multiplies all components of a vector by another to remove components if done by 0
+    /// </summary>
+    /// <param name="vectorToEdit"></param>
+    /// <param name="componentsToRemove"></param>
+    /// <returns></returns>
+    private Vector3 RemoveVectorComponents(Vector3 vectorToEdit, Vector3 componentsToRemove)
+    {
+        return new Vector3(vectorToEdit.x * componentsToRemove.x, vectorToEdit.y * componentsToRemove.y, vectorToEdit.z * componentsToRemove.z);
+    }
+
+    /// <summary>
+    /// Determines whether a number is positive, negative, or zero
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    private float GetValueDirection(float value)
+    {
+        if (value < 0)
+        {
+            return -1;
+        }
+        else if (value == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     /// <summary>
