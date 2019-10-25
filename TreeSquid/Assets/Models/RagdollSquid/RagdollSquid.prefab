@@ -41,10 +41,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &204536103
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,10 +86,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &258427088
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,10 +131,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &504171514
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,10 +176,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &543459225
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,10 +221,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &630742651
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,10 +266,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &844184901
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,10 +311,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &848555931
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,10 +356,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &1241735427
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,10 +401,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &1412809859
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,10 +446,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
+  m_Radius: 0.29
+  m_Height: 1.44
   m_Direction: 0
-  m_Center: {x: 0.35, y: 0, z: 0}
+  m_Center: {x: 0.37, y: 0, z: 0}
 --- !u!1 &1107297028015219960
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +465,8 @@ GameObject:
   - component: {fileID: 2019334161}
   - component: {fileID: 2019334162}
   - component: {fileID: 2019334163}
+  - component: {fileID: 1233354325408705751}
+  - component: {fileID: 243548166861422659}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -537,7 +539,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1107297028015219960}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.81
   m_Height: 2.76
   m_Direction: 0
@@ -646,6 +648,124 @@ MonoBehaviour:
   progressBarEmpty: {fileID: 2800000, guid: d54967535689c764c961d9a33b7de650, type: 3}
   progressBarFull: {fileID: 2800000, guid: 83427d7c82ac582449f47f281690636b, type: 3}
   whiteBoarder: {fileID: 2800000, guid: 91a692ecb3068d547911796a5cf5993e, type: 3}
+  audioSource: {fileID: 243548166861422659}
+  squidPop: {fileID: 8300000, guid: 4eec1ab1a5583fe4d97f761446b6537a, type: 3}
+  squidNudgeSounds:
+  - {fileID: 8300000, guid: d425f7e74091ae84994a0c931ca173bc, type: 3}
+  - {fileID: 8300000, guid: 206a75e4475e7fd419fc6ac8d820f121, type: 3}
+  - {fileID: 8300000, guid: 404b45e8d3326194d92c4ece34eda615, type: 3}
+  - {fileID: 8300000, guid: a41d01b20fd2b8e4e8b8e8ef65cf49ba, type: 3}
+  squidSplatSounds: []
+  instance: {fileID: 0}
+--- !u!65 &1233354325408705751
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107297028015219960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.8180127, y: 2.45637, z: 2.6284113}
+  m_Center: {x: 2.5597184, y: 0.09306757, z: 0.0009473428}
+--- !u!82 &243548166861422659
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107297028015219960}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1407544854277323217
 GameObject:
   m_ObjectHideFlags: 0
