@@ -157,7 +157,21 @@ namespace Invector.CharacterController
             if (!keepDirection)
                 cc.UpdateTargetDirection(tpCamera != null ? tpCamera.transform : null);
             // rotate the character with the camera while strafing        
-            RotateWithCamera(tpCamera != null ? tpCamera.transform : null);            
+            RotateWithCamera(tpCamera != null ? tpCamera.transform : null);   
+            
+            if(PlayerVars.instance)
+            {
+                if(PlayerVars.instance.sceneState == PlayerVars.SceneState.PlayerPaused)
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+            }
         }
 
         protected virtual void UpdateCameraStates()

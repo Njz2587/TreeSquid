@@ -217,7 +217,6 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    Debug.Log(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector));
                     playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector) * (nudgePower));
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
@@ -246,7 +245,7 @@ public class PlayerController : MonoBehaviour
                     playerLaunchPower += chargeIndex;
                 }
             }
-            else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
+            else if (Input.GetMouseButton(0) == false && playerLaunchPower > 0)
             {
                 //Play Launch Sound Here
                 PlaySquidSound(SquidSound.Launch, ScaleVolumeToForce(playerLaunchPower, MAX_FORCE));
@@ -275,21 +274,6 @@ public class PlayerController : MonoBehaviour
             else if (playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance != playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().initialDefaultDistance)
             {
                 playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.GetComponent<vThirdPersonCamera>().defaultDistance += 1;
-            }
-        }
-        #endregion
-
-        #region Commands
-        if (Input.GetKey(KeyCode.Slash))
-        {
-            string comboKeyCode = Input.inputString;
-            if (comboKeyCode == "r")
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-            else if (comboKeyCode == "c")
-            {
-                PlayerVars.instance.ResetToCheckPoint(0);
             }
         }
         #endregion

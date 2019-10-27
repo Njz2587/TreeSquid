@@ -13,7 +13,7 @@ public class PlayerVars : MonoBehaviour
     public float GameOverResetDelay = 3.0f;
 
     #region Stored Variables
-    public enum SceneState { PlayerNull, PlayerDisabled, PlayerActive }
+    public enum SceneState { PlayerNull, PlayerDisabled, PlayerActive, PlayerPaused }
     [HideInInspector]
     public float currentDetectionAmount; //Current amount of detection the player has gained
     [HideInInspector]
@@ -56,16 +56,47 @@ public class PlayerVars : MonoBehaviour
     /// Identify if the player has reached the max detection
     /// </summary>
     private void Update()
-    {       
-        if (player != null && sceneState == SceneState.PlayerActive)
+    {
+        if (player != null)
         {
-            //End the level if player reaches max detection
-            if (currentDetectionAmount >= MAX_DETECTION)
+            if (sceneState == SceneState.PlayerActive)
             {
-                currentDetectionAmount = MAX_DETECTION;
-                GameOver();
+                //End the level if player reaches max detection
+                if (currentDetectionAmount >= MAX_DETECTION)
+                {
+                    currentDetectionAmount = MAX_DETECTION;
+                    GameOver();
+                }
             }
         }
+
+        #region Commands
+        if (Input.GetKey(KeyCode.Slash))
+        {
+            string comboKeyCode = Input.inputString;
+            if (comboKeyCode == "r")
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (comboKeyCode == "c")
+            {
+                PlayerVars.instance.ResetToCheckPoint(0);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(sceneState != SceneState.PlayerPaused)
+            {
+                sceneState = SceneState.PlayerPaused;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                sceneState = SceneState.PlayerActive;
+                Time.timeScale = 1;
+            }
+        }
+        #endregion
     }
 
     /// <summary>
