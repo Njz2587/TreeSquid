@@ -9,8 +9,13 @@ public class PlayerVars : MonoBehaviour
     [Header("Player Varables")]
     public SceneState sceneState = SceneState.PlayerNull;
     public float MAX_DETECTION = 100;
-    public float CheckPointResetDelay = 3.0f;
+    public const float CheckPointResetDelay = 3.0f;
     public float GameOverResetDelay = 3.0f;
+
+    [Header("Scene Music")]
+    [Space(10)]
+    public AudioClip sceneMusic;
+    public AudioSource audioSource;
 
     #region Stored Variables
     public enum SceneState { PlayerNull, PlayerDisabled, PlayerActive, PlayerPaused }
@@ -24,6 +29,8 @@ public class PlayerVars : MonoBehaviour
     public GameObject player; //The player defined by the start method of the player
     [HideInInspector]
     public static PlayerVars instance; //Singleton
+
+    private bool isReseting = false;
     #endregion
     #endregion
 
@@ -49,6 +56,13 @@ public class PlayerVars : MonoBehaviour
         for(int i = 0; i < checkPoints.Length; i++)
         {
             checkPoints[i].CheckPointID = i;
+        }
+
+        if(sceneMusic & audioSource)
+        {
+            audioSource.clip = sceneMusic;
+            audioSource.loop = true;
+            audioSource.Play();
         }
     }
 
@@ -99,16 +113,28 @@ public class PlayerVars : MonoBehaviour
         #endregion
     }
 
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.layer == 11) //Squid Layer
+        {
+            ResetToCheckPoint(0, 0);
+        }
+    }
+
     /// <summary>
     /// Reset the player to their last checkpoint and increase their detection amount
     /// </summary>
     /// <param name="detectionAmount"></param>
-    public void ResetToCheckPoint(int detectionAmount)
+    public void ResetToCheckPoint(int detectionAmount, float resetDelay = CheckPointResetDelay)
     {
-        Debug.Log("RESTART AT LAST CHECKPOINT");
-        DisablePlayer();
-        currentDetectionAmount += detectionAmount;
-        StartCoroutine(ResetPlayer(CheckPointResetDelay));
+        if (isReseting == false)
+        {
+            isReseting = true;
+            //Debug.Log("RESTART AT LAST CHECKPOINT");
+            DisablePlayer();
+            currentDetectionAmount += detectionAmount;
+            StartCoroutine(ResetPlayer(resetDelay));
+        }
     }
 
     #region Helper Methods
@@ -120,6 +146,7 @@ public class PlayerVars : MonoBehaviour
         sceneState = SceneState.PlayerDisabled;
         player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         player.GetComponent<Rigidbody>().isKinematic = true;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<PlayerController>().ResetPlayerCharge();
         ResetAllDetectionZones();
     }
@@ -176,6 +203,8 @@ public class PlayerVars : MonoBehaviour
         }
         ResetAllDetectionZones();
         EnablePlayer();
+
+        isReseting = false;
     }
 
     /// <summary>

@@ -302,16 +302,16 @@ public class PlayerController : MonoBehaviour
         switch(soundTypeToPlay)
         {
             case SquidSound.Detatch:
-                if(squidPop && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidPop); }
+                if(squidPop && !audioSource.isPlaying) { audioSource.PlayOneShot(squidPop); }
                 break;
             case SquidSound.Nudge:
-                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0 && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }                    
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0 && !audioSource.isPlaying) { audioSource.PlayOneShot(squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }                    
                 break;
             case SquidSound.Splat:
-                if (squidSplatSounds != null && squidSplatSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidSplatSounds[Random.Range(0, squidSplatSounds.Count)]); }               
+                if (squidSplatSounds != null && squidSplatSounds.Count > 0) { audioSource.PlayOneShot(squidSplatSounds[Random.Range(0, squidSplatSounds.Count)]); }               
                 break;
             case SquidSound.Launch:
-                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0) { audioSource.PlayOneShot(squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }
                 break;
         }
     }
