@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 400150}
   - component: {fileID: 3307618}
   - component: {fileID: 2307452}
-  - component: {fileID: 7399484193844742940}
-  - component: {fileID: 1506913204496655161}
-  - component: {fileID: 3831773275970787556}
-  - component: {fileID: 2455458083483180223}
-  - component: {fileID: 6353323080679333467}
-  - component: {fileID: 3805313231302084583}
-  - component: {fileID: 2780619577529992047}
+  - component: {fileID: 4659886795107907437}
+  - component: {fileID: 5169981088883629488}
+  - component: {fileID: 352997980135700405}
+  - component: {fileID: 2509743617206853493}
+  - component: {fileID: 4766127997251769283}
+  - component: {fileID: 7487484181707603819}
   m_Layer: 0
   m_Name: SM_Env_Stalagmite_01
   m_TagString: Untagged
@@ -84,7 +83,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &7399484193844742940
+--- !u!136 &4659886795107907437
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +93,11 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.07000001
-  m_Height: 0.37000096
+  m_Radius: 0.07827697
+  m_Height: 0.66624665
   m_Direction: 1
-  m_Center: {x: 0.09, y: 0.66096526, z: 0.08}
---- !u!136 &1506913204496655161
+  m_Center: {x: 0.17144305, y: 0.41030395, z: -0.10445855}
+--- !u!136 &5169981088883629488
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,11 +107,11 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12
-  m_Height: 0.6884999
+  m_Radius: 0.0782267
+  m_Height: 0.5748596
   m_Direction: 1
-  m_Center: {x: 0.08, y: 0.22, z: 0.08}
---- !u!136 &3831773275970787556
+  m_Center: {x: 0.08706646, y: 0.55853593, z: 0.083724365}
+--- !u!136 &352997980135700405
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,11 +121,11 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.08
-  m_Height: 0.84
+  m_Radius: 0.08937036
+  m_Height: 0.45402974
   m_Direction: 1
-  m_Center: {x: 0.15, y: 0.3126931, z: -0.1}
---- !u!135 &2455458083483180223
+  m_Center: {x: -0.15367374, y: 0.43042657, z: 0.08923761}
+--- !u!135 &2509743617206853493
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,9 +136,9 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0.15, y: 0.06, z: -0.1}
---- !u!135 &6353323080679333467
+  m_Radius: 0.23624599
+  m_Center: {x: 0.16223815, y: -0.035645336, z: -0.110925615}
+--- !u!135 &4766127997251769283
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,9 +149,9 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: -0.18, y: -0.01, z: 0.08}
---- !u!135 &3805313231302084583
+  m_Radius: 0.22841603
+  m_Center: {x: 0.07371187, y: -0.021534234, z: 0.07107377}
+--- !u!135 &7487484181707603819
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,19 +162,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
-  m_Center: {x: 0.09, y: 0.06, z: 0.08}
---- !u!136 &2780619577529992047
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195212}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.09
-  m_Height: 0.71
-  m_Direction: 1
-  m_Center: {x: -0.15, y: 0.3126931, z: 0.09}
+  m_Radius: 0.24209267
+  m_Center: {x: -0.14965662, y: -0.035645247, z: 0.09290707}
