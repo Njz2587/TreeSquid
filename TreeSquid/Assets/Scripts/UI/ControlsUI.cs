@@ -6,34 +6,53 @@ using UnityEngine.UI;
 public class ControlsUI : MonoBehaviour
 {
     [SerializeField] private RectTransform tutTransform;
-    [SerializeField] private float showTime;
     private Text tutText;
     private Image tutPanel;
 
     [SerializeField] private Slider power;
-
-    public float PowerValue { set { if (power != null) { power.value = value; } } }
-    public string TutMessage { private get; set; }
+    [SerializeField] private PlayerController player;
 
     private void Awake()
     {
         tutText = tutTransform.GetComponentInChildren<Text>();
         tutPanel = tutTransform.GetComponent<Image>();
-
-        StartCoroutine(Fade(tutText, 0.5f, 0, 2));
-        StartCoroutine(Fade(tutPanel, 0.5f, 0, 2));
-
+        StartCoroutine(Tutorial());
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
+        power.value = player.playerLaunchPower / player.MAX_FORCE;
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            ShowMessage("STOP THAT SQUID");
+            StopAllCoroutines();
+            StartCoroutine(Tutorial());
         }
     }
 
-    private IEnumerator FadeInOut(Graphic graphic, float alphaStart, float alphaFinish, float time)
+    private IEnumerator Tutorial()
+    {
+        float time = 1;
+        float holdTime = 3;
+
+        ShowMessage("Mouse: look around", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+
+        ShowMessage("Left Mouse: Launch squid", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+
+        ShowMessage("Right Mouse: Zoom", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+
+        ShowMessage("P: return to Menu", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+
+        ShowMessage("Q: replay tutorial", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+    }
+
+
+    private IEnumerator FadeInOut(Graphic graphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
     {
         float elapsedTime = 0;
         Color colorStart = graphic.color;
@@ -51,10 +70,10 @@ public class ControlsUI : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        StartCoroutine(Fade(graphic, alphaFinish, alphaStart, time));
+        StartCoroutine(Fade(graphic, alphaFinish, alphaStart, time, holdTime));
     }
 
-    private IEnumerator Fade(Graphic graphic, float alphaStart, float alphaFinish, float time)
+    private IEnumerator Fade(Graphic graphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
     {
         float elapsedTime = 0;
         Color colorStart = graphic.color;
@@ -65,7 +84,7 @@ public class ControlsUI : MonoBehaviour
 
         graphic.color = colorStart;
 
-        yield return new WaitForSeconds(showTime);
+        yield return new WaitForSeconds(holdTime);
 
         while (elapsedTime < time)
         {
@@ -75,18 +94,21 @@ public class ControlsUI : MonoBehaviour
         }
     }
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, float time = 2, float holdTime = 5)
     {
-        TutMessage = message;
-        ShowMessage();
+        tutText.text = message;
+        ShowMessage(time, holdTime);
     }
 
-    public void ShowMessage()
+    public void ShowMessage(float time = 2 , float holdTime = 5)
+    {
+        StartCoroutine(FadeInOut(tutText, 0, 0.5f, time, holdTime));
+        StartCoroutine(FadeInOut(tutPanel, 0, 0.5f, time, holdTime));
+    }
+
+    private void OnDisable()
     {
         StopAllCoroutines();
-
-        StartCoroutine(FadeInOut(tutText, 0, 0.5f, 2));
-        StartCoroutine(FadeInOut(tutPanel, 0, 0.5f, 2));
     }
 
 }

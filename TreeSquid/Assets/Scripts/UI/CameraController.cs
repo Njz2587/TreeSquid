@@ -12,9 +12,11 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private GameObject squid;
     private Transform squidCamTransform;
-    private bool transitionedToSquid = false;
+    private bool squidTransition = false;
 
     [SerializeField] private ControlsUI controlsUI;
+
+    private Camera m_camera;
 
     private void Awake()
     {
@@ -22,10 +24,23 @@ public class CameraController : MonoBehaviour
         squidCamTransform = new GameObject("fakeSquid").transform;
         squidCamTransform.position = squidCamT.position;
         squidCamTransform.rotation = squidCamT.rotation;
-    }
 
+        m_camera = GetComponent<Camera>();
+    }
+    private void Start()
+    {
+        PlayerVars.instance.player = squid.GetComponentInChildren<PlayerController>().gameObject;
+        PlayerVars.instance.DisablePlayer();
+        squid.SetActive(false);
+        ShowMenus(true);
+    }
     private void Update()
     {
+        if (m_camera.enabled)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
         if (timer < lerpTime)
         {
             timer += Time.deltaTime;
@@ -35,12 +50,15 @@ public class CameraController : MonoBehaviour
                 transform.localRotation = Quaternion.identity;
                 transform.localPosition = Vector3.zero;
 
-                if (transitionedToSquid)
-                {
-                    squid.SetActive(true);
+                if (squidTransition)
+                {                  
+                    PlayerVars.instance.EnablePlayer();
                     controlsUI.gameObject.SetActive(true);
 
-                    gameObject.GetComponent<Camera>().enabled = (false);
+                    m_camera.enabled = (false);
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    ShowMenus(false);
                 }
 
             }
@@ -73,11 +91,20 @@ public class CameraController : MonoBehaviour
         SceneManager.LoadScene(scenename, LoadSceneMode.Single);
     }
 
+    private void ShowMenus(bool show)
+    {
+        foreach(Transform t in cameraPositions)
+        {
+            t.parent.gameObject.SetActive(show);
+        }
+    }
+
     public void GoToCameraPosition(int index)
     {
-        if (transitionedToSquid)
+        if (squidTransition)
         {
-            gameObject.GetComponent<Camera>().enabled = true;
+            ShowMenus(true);
+            m_camera.enabled = true;
 
             Transform squidCamT = squid.GetComponentInChildren<Camera>().transform;
             squidCamTransform.position = squidCamT.position;
@@ -88,9 +115,13 @@ public class CameraController : MonoBehaviour
             transform.localRotation = Quaternion.identity;
 
             squid.SetActive(false);
+            PlayerVars.instance.DisablePlayer();
             controlsUI.gameObject.SetActive(false);
 
-            transitionedToSquid = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            squidTransition = false;
         }
         
         transform.SetParent(cameraPositions[index]);
@@ -102,6 +133,7 @@ public class CameraController : MonoBehaviour
         transform.SetParent(squidCamTransform);
         timer = 0;
 
-        transitionedToSquid = true;
+        squid.SetActive(true);
+        squidTransition = true;
     }
 }
