@@ -12,9 +12,6 @@ GameObject:
   - component: {fileID: 7177221398325526981}
   - component: {fileID: 7177221398326543847}
   - component: {fileID: 5234125225089195457}
-  - component: {fileID: 4798885346162475508}
-  - component: {fileID: 5735143383223050713}
-  - component: {fileID: 7779452059388268843}
   m_Layer: 0
   m_Name: SM_Env_Pillar_Square_04
   m_TagString: Untagged
@@ -92,44 +89,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8935337, y: 0.2546146, z: 0.8939431}
-  m_Center: {x: 0.0000009536743, y: 0.1273073, z: 0.000000834465}
---- !u!65 &4798885346162475508
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7177221398328713847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6076001, y: 1.3552024, z: 0.58442706}
-  m_Center: {x: -0.0064138575, y: 0.93921536, z: -0.013252338}
---- !u!65 &5735143383223050713
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7177221398328713847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.66061914, y: 0.19376628, z: 0.67244977}
-  m_Center: {x: 0.009073874, y: 1.7144188, z: 0.00037384033}
---- !u!65 &7779452059388268843
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7177221398328713847}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.48905978, y: 0.50626564, z: 0.48585027}
-  m_Center: {x: -0.0012663206, y: 2.0791957, z: 0.0051014028}
+  m_Size: {x: 0.8935337, y: 2.3323257, z: 0.8939431}
+  m_Center: {x: 0.0000009536743, y: 1.1661628, z: 0.000000834465}
