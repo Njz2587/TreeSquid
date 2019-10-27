@@ -178,7 +178,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4627077196570076}
-  - component: {fileID: 7297668170952522400}
+  - component: {fileID: 5223115403264351523}
+  - component: {fileID: 7908474951932464138}
+  - component: {fileID: 4934930910594704640}
+  - component: {fileID: 409502691653483413}
+  - component: {fileID: 1200691451209328852}
   m_Layer: 0
   m_Name: Jungle_Tree_Dead_B_Grass
   m_TagString: Untagged
@@ -202,8 +206,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &7297668170952522400
-MeshCollider:
+--- !u!135 &5223115403264351523
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -212,7 +216,58 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Radius: 1.57
+  m_Center: {x: 0.17, y: 0, z: 0}
+--- !u!135 &7908474951932464138
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172341881828518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.73
+  m_Center: {x: 1.32, y: 1.98, z: 0.13}
+--- !u!135 &4934930910594704640
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172341881828518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: 2.18, y: 2.86, z: 0}
+--- !u!135 &409502691653483413
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172341881828518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: 3.04, y: 3.71, z: -0.12}
+--- !u!135 &1200691451209328852
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172341881828518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.85
+  m_Center: {x: 3.91, y: 3.88, z: -0.12}
