@@ -14,6 +14,11 @@ public class DetectionZone : MonoBehaviour
     [ConditionalHide("isIncremental", true, true)]
     public int instantDetectionIncrement = 10; //How much detection is gained instantly when the player is in contact with this region
 
+    [Header("Audio Settings")]
+    [Space(10)]
+    public AudioSource audioSource;
+    public AudioClip instantDeathSound;
+
     [Header("Gizmo Control")]
     [Space(10)]
     public GizmoDrawObject drawObject;
@@ -47,6 +52,10 @@ public class DetectionZone : MonoBehaviour
                     }
                     else if (detectionMode == DetectionMode.Instant)
                     {
+                        if(audioSource && instantDeathSound)
+                        {
+                            audioSource.PlayOneShot(instantDeathSound);
+                        }
                         PlayerVars.instance.ResetToCheckPoint(instantDetectionIncrement);
                     }
                 }

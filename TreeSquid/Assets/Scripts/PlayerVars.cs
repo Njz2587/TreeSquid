@@ -9,11 +9,16 @@ public class PlayerVars : MonoBehaviour
     [Header("Player Varables")]
     public SceneState sceneState = SceneState.PlayerNull;
     public float MAX_DETECTION = 100;
-    public float CheckPointResetDelay = 3.0f;
+    public const float CheckPointResetDelay = 3.0f;
     public float GameOverResetDelay = 3.0f;
 
+    [Header("Scene Music")]
+    [Space(10)]
+    public AudioClip sceneMusic;
+    public AudioSource audioSource;
+
     #region Stored Variables
-    public enum SceneState { PlayerNull, PlayerDisabled, PlayerActive }
+    public enum SceneState { PlayerNull, PlayerDisabled, PlayerActive, PlayerPaused }
     [HideInInspector]
     public float currentDetectionAmount; //Current amount of detection the player has gained
     [HideInInspector]
@@ -24,6 +29,8 @@ public class PlayerVars : MonoBehaviour
     public GameObject player; //The player defined by the start method of the player
     [HideInInspector]
     public static PlayerVars instance; //Singleton
+
+    private bool isReseting = false;
     #endregion
     #endregion
 
@@ -50,21 +57,67 @@ public class PlayerVars : MonoBehaviour
         {
             checkPoints[i].CheckPointID = i;
         }
+
+        if(sceneMusic & audioSource)
+        {
+            audioSource.clip = sceneMusic;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     /// <summary>
     /// Identify if the player has reached the max detection
     /// </summary>
     private void Update()
-    {       
-        if (player != null && sceneState == SceneState.PlayerActive)
+    {
+        if (player != null)
         {
-            //End the level if player reaches max detection
-            if (currentDetectionAmount >= MAX_DETECTION)
+            if (sceneState == SceneState.PlayerActive)
             {
-                currentDetectionAmount = MAX_DETECTION;
-                GameOver();
+                //End the level if player reaches max detection
+                if (currentDetectionAmount >= MAX_DETECTION)
+                {
+                    currentDetectionAmount = MAX_DETECTION;
+                    GameOver();
+                }
             }
+        }
+
+        #region Commands
+        if (Input.GetKey(KeyCode.Slash))
+        {
+            string comboKeyCode = Input.inputString;
+            if (comboKeyCode == "r")
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (comboKeyCode == "c")
+            {
+                PlayerVars.instance.ResetToCheckPoint(0);
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(sceneState != SceneState.PlayerPaused)
+            {
+                sceneState = SceneState.PlayerPaused;
+                Time.timeScale = 0;
+            }
+            else
+            {
+                sceneState = SceneState.PlayerActive;
+                Time.timeScale = 1;
+            }
+        }
+        #endregion
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.layer == 11) //Squid Layer
+        {
+            ResetToCheckPoint(0, 0);
         }
     }
 
@@ -72,23 +125,28 @@ public class PlayerVars : MonoBehaviour
     /// Reset the player to their last checkpoint and increase their detection amount
     /// </summary>
     /// <param name="detectionAmount"></param>
-    public void ResetToCheckPoint(int detectionAmount)
+    public void ResetToCheckPoint(int detectionAmount, float resetDelay = CheckPointResetDelay)
     {
-        Debug.Log("RESTART AT LAST CHECKPOINT");
-        DisablePlayer();
-        currentDetectionAmount += detectionAmount;
-        StartCoroutine(ResetPlayer(CheckPointResetDelay));
+        if (isReseting == false)
+        {
+            isReseting = true;
+            //Debug.Log("RESTART AT LAST CHECKPOINT");
+            DisablePlayer();
+            currentDetectionAmount += detectionAmount;
+            StartCoroutine(ResetPlayer(resetDelay));
+        }
     }
 
     #region Helper Methods
     /// <summary>
     /// Disables the player's controls and makes them inactive and invisible
     /// </summary>
-    private void DisablePlayer()
+    public void DisablePlayer()
     {
         sceneState = SceneState.PlayerDisabled;
         player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
         player.GetComponent<Rigidbody>().isKinematic = true;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<PlayerController>().ResetPlayerCharge();
         ResetAllDetectionZones();
     }
@@ -96,7 +154,7 @@ public class PlayerVars : MonoBehaviour
     /// <summary>
     /// Enables the player's controls and makes them active and visible
     /// </summary>
-    private void EnablePlayer()
+    public void EnablePlayer()
     {
         sceneState = SceneState.PlayerActive;
         player.GetComponent<Rigidbody>().isKinematic = false;
@@ -145,6 +203,8 @@ public class PlayerVars : MonoBehaviour
         }
         ResetAllDetectionZones();
         EnablePlayer();
+
+        isReseting = false;
     }
 
     /// <summary>

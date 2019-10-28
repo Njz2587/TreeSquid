@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public float MAX_FORCE = 330000; //The Value The Player Can Charge Too
     public float chargeIndex = 4000; //The Index The Value Charges By Each Frame While Held
+    [HideInInspector]
+    public float playerLaunchPower;
 
     [Header("UI Settings")]
     [Space(10)]
@@ -40,7 +42,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 ignoreVector = new Vector3(1, 0, 1);
 
     private float nudgePower;
-    private float playerLaunchPower;
 
     private Vector2 iconSize = new Vector2(30, 400);
     private Vector2 uiOffset = new Vector2(20, 20);
@@ -94,21 +95,6 @@ public class PlayerController : MonoBehaviour
         if (stuckOnObject != null)
         {
             Gizmos.DrawSphere(stuckOnObject.transform.position, 0.2f);
-        }
-    }
-
-    /// <summary>
-    /// Draws Charge Meter
-    /// </summary>
-    private void OnGUI()
-    {
-        //Launch power
-        if (playerLaunchPower > 0)
-        {
-            Rect playerBarRect = new Rect(uiOffset.x, Screen.height - uiOffset.y, Screen.width / iconSize.x, (playerLaunchPower / (MAX_FORCE/(iconSize.y)) * -1));
-            GUI.DrawTexture(GetShadowRect(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), 2f, new Rect(1, 1, 1, 1)), whiteBoarder, ScaleMode.StretchToFill, true, 10.0F, Color.white, 0, 0);
-            GUI.DrawTexture(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), progressBarEmpty, ScaleMode.StretchToFill, true, 10.0F, Color.black, 0, 0);
-            GUI.DrawTexture(playerBarRect, progressBarFull, ScaleMode.StretchToFill, true, 10.0F, Color.red, 0, 0);
         }
     }
 
@@ -217,7 +203,6 @@ public class PlayerController : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.W))
                 {
-                    Debug.Log(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector));
                     playerChest.GetComponent<Rigidbody>().AddForce(RemoveVectorComponents(GetUnitDirectionVector(playerChest.GetComponent<vThirdPersonInput>().PlayerOneCam.transform.forward), ignoreVector) * (nudgePower));
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
@@ -246,7 +231,7 @@ public class PlayerController : MonoBehaviour
                     playerLaunchPower += chargeIndex;
                 }
             }
-            else if (Input.GetMouseButtonUp(0) && playerLaunchPower > 0)
+            else if (Input.GetMouseButton(0) == false && playerLaunchPower > 0)
             {
                 //Play Launch Sound Here
                 PlaySquidSound(SquidSound.Launch, ScaleVolumeToForce(playerLaunchPower, MAX_FORCE));
@@ -278,21 +263,6 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
-
-        #region Commands
-        if (Input.GetKey(KeyCode.Slash))
-        {
-            string comboKeyCode = Input.inputString;
-            if (comboKeyCode == "r")
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-            else if (comboKeyCode == "c")
-            {
-                PlayerVars.instance.ResetToCheckPoint(0);
-            }
-        }
-        #endregion
     }
 
     /// <summary>
@@ -318,16 +288,16 @@ public class PlayerController : MonoBehaviour
         switch(soundTypeToPlay)
         {
             case SquidSound.Detatch:
-                if(squidPop && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidPop); }
+                if(squidPop && !audioSource.isPlaying) { audioSource.PlayOneShot(squidPop); }
                 break;
             case SquidSound.Nudge:
-                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0 && !audioSource.isPlaying) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }                    
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0 && !audioSource.isPlaying) { audioSource.PlayOneShot(squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }                    
                 break;
             case SquidSound.Splat:
-                if (squidSplatSounds != null && squidSplatSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidSplatSounds[Random.Range(0, squidSplatSounds.Count)]); }               
+                if (squidSplatSounds != null && squidSplatSounds.Count > 0) { audioSource.PlayOneShot(squidSplatSounds[Random.Range(0, squidSplatSounds.Count)]); }               
                 break;
             case SquidSound.Launch:
-                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0) { AudioManager.instance.PlaySound(audioSource, squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }
+                if (squidNudgeSounds != null && squidNudgeSounds.Count > 0) { audioSource.PlayOneShot(squidNudgeSounds[Random.Range(0, squidNudgeSounds.Count)]); }
                 break;
         }
     }

@@ -104,6 +104,9 @@ public class ResetObject
 {
     #region Variables & Inspector Options
     public GameObject resetObject; //Object To Watch
+    public AudioClip collisionSound; //Sound this object will make when hit
+    private AudioPhysicsObject audioPhysicsObject; //Script to handle this object
+    private AudioSource audioSource; //Audio source to play sound from
 
     #region Stored Values
     Vector3 defaultPosition; //Orignal Transform
@@ -120,6 +123,31 @@ public class ResetObject
         defaultPosition = resetObject.transform.position;
         defaultRotation = resetObject.transform.rotation;
         defaultScale = resetObject.transform.localScale;
+
+        InitAudio();
+    }
+
+    /// <summary>
+    /// Sets up the collision audio of this object
+    /// </summary>
+    public void InitAudio()
+    {
+        audioPhysicsObject = resetObject.GetComponent<AudioPhysicsObject>();
+        if (audioPhysicsObject == null)
+        {
+            audioPhysicsObject = resetObject.AddComponent<AudioPhysicsObject>();
+        }
+
+        audioSource = resetObject.GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = resetObject.AddComponent<AudioSource>();
+        }
+
+        audioPhysicsObject.audioSource = audioSource;
+        audioPhysicsObject.collisionSound = collisionSound;
+
+
     }
 
     /// <summary>

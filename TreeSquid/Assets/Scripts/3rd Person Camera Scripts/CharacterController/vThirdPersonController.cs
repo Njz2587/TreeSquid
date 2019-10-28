@@ -7,9 +7,7 @@ namespace Invector.CharacterController
     {
         protected virtual void Start()
         {
-#if !UNITY_EDITOR
-                Cursor.visible = false;
-#endif
+
         }
 
         public virtual void Sprint(bool value)

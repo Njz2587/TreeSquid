@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 483570}
   - component: {fileID: 3321468}
   - component: {fileID: 2334440}
-  - component: {fileID: 393811787382584136}
-  - component: {fileID: 58868913765548806}
+  - component: {fileID: 8580140559252032174}
+  - component: {fileID: 4731400360877841969}
   m_Layer: 0
   m_Name: SM_Env_Wall_Rock_Blocked_01
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &393811787382584136
+--- !u!65 &8580140559252032174
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,9 +90,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4806066, y: 3.271563, z: 0.8872714}
-  m_Center: {x: 0.041595936, y: 1.6357815, z: -0.41271758}
---- !u!65 &58868913765548806
+  m_Size: {x: 2.374945, y: 3.3409193, z: 1.0601516}
+  m_Center: {x: 0.021190047, y: 1.6704596, z: -0.49429512}
+--- !u!65 &4731400360877841969
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,5 +103,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5737514, y: 1.7207596, z: 0.5016012}
-  m_Center: {x: -0.11802861, y: 0.8603798, z: -1.1060214}
+  m_Size: {x: 1.5690217, y: 1.6470845, z: 0.34819221}
+  m_Center: {x: -0.17586708, y: 0.82354224, z: -1.2110238}

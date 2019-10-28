@@ -11,10 +11,8 @@ GameObject:
   - component: {fileID: 456150}
   - component: {fileID: 3332388}
   - component: {fileID: 2384208}
-  - component: {fileID: 6950430073430312178}
-  - component: {fileID: 1214516820708948125}
-  - component: {fileID: 4474975673785636777}
-  - component: {fileID: 8754398448594355940}
+  - component: {fileID: 7025734634469686058}
+  - component: {fileID: 4783008520078456468}
   m_Layer: 0
   m_Name: SM_Env_Stalagmite_06
   m_TagString: Untagged
@@ -81,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6950430073430312178
+--- !u!65 &7025734634469686058
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,22 +90,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5346724, y: 0.107755065, z: 0.5812495}
-  m_Center: {x: 0.009299159, y: 0.04430324, z: -0.001052022}
---- !u!65 &1214516820708948125
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170590}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.41969007, y: 0.107755065, z: 0.48987043}
-  m_Center: {x: 0.011864923, y: 0.15, z: -0.010416806}
---- !u!136 &4474975673785636777
+  m_Size: {x: 0.513249, y: 0.2493552, z: 0.5791451}
+  m_Center: {x: 0.007152647, y: 0.097884834, z: 0.00000017881393}
+--- !u!136 &4783008520078456468
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,20 +102,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12
-  m_Height: 0.5084095
+  m_Radius: 0.13
+  m_Height: 0.77890337
   m_Direction: 1
-  m_Center: {x: 0.00000023841858, y: 0.5907953, z: 0.0000001937151}
---- !u!135 &8754398448594355940
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170590}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.17
-  m_Center: {x: 0.00000023841858, y: 0.26, z: 0.0000001937151}
+  m_Center: {x: 0.00000023841858, y: 0.45651406, z: 0.0000001937151}
