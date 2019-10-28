@@ -32,6 +32,8 @@ public class GameVars : MonoBehaviour
             if(gameMusicVolumeScale != SlidersUI.instance.musicSlider.value)
             {
                 gameMusicVolumeScale = SlidersUI.instance.musicSlider.value;
+
+                PlayerVars.instance.audioSource.volume = gameMusicVolumeScale;
             }
 
             if (gameSFXVolumeScale != SlidersUI.instance.sfxSlider.value)
