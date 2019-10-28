@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
         defaultVolume = audioSource.volume;
         PlayerVars.instance.player = gameObject;
         PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
+
+        if (PlayerVars.instance.isUsingMenu == false)
+        {
+            PlayerVars.instance.InitializeSquid();
+        }
     }
 
     /// <summary>

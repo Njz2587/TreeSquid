@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public Object sceneToLoad;
+    public string sceneName;
 
     void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.name == "Player")
         {
-            SceneManager.LoadScene(sceneToLoad.name);
+            SceneManager.LoadScene(sceneName);
         }
     }
 }

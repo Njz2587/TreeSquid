@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ControlsUI : MonoBehaviour
 {
@@ -12,11 +13,19 @@ public class ControlsUI : MonoBehaviour
     [SerializeField] private Slider power;
     [SerializeField] private PlayerController player;
 
-    private void Awake()
+    private void OnEnable()
     {
         tutText = tutTransform.GetComponentInChildren<Text>();
         tutPanel = tutTransform.GetComponent<Image>();
-        StartCoroutine(Tutorial());
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            StartCoroutine(Tutorial());
+        }
+        else
+        {
+            tutPanel.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -30,7 +39,7 @@ public class ControlsUI : MonoBehaviour
         }
     }
 
-    private IEnumerator Tutorial()
+    public IEnumerator Tutorial()
     {
         float time = 1;
         float holdTime = 3;
@@ -44,7 +53,10 @@ public class ControlsUI : MonoBehaviour
         ShowMessage("Right Mouse: Zoom", time, holdTime);
         yield return new WaitForSeconds(time * 2 + holdTime);
 
-        ShowMessage("P: return to Menu", time, holdTime);
+        ShowMessage("WASD: Nudge/Pop off walls", time, holdTime);
+        yield return new WaitForSeconds(time * 2 + holdTime);
+
+        ShowMessage("Esc: begin game", time, holdTime);
         yield return new WaitForSeconds(time * 2 + holdTime);
 
         ShowMessage("Q: replay tutorial", time, holdTime);

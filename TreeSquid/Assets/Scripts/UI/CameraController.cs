@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private GameObject squid;
     private Transform squidCamTransform;
-    private bool squidTransition = false;
+    private bool squidTransition = false, hasAlreadyDoneTutorial = false;
 
     [SerializeField] private ControlsUI controlsUI;
 
@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     }
     private void Start()
     {
+        PlayerVars.instance.isUsingMenu = true;
         PlayerVars.instance.player = squid.GetComponentInChildren<PlayerController>().gameObject;
         PlayerVars.instance.DisablePlayer();
         squid.SetActive(false);
@@ -71,9 +72,13 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GoToCameraPosition(0);
+            //GoToCameraPosition(0);
+            PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
+            Time.timeScale = 1;
+            PlayerVars.instance.isUsingMenu = false;
+            LoadScene("Level_1");
         }
     }
 
@@ -126,14 +131,29 @@ public class CameraController : MonoBehaviour
         
         transform.SetParent(cameraPositions[index]);
         timer = 0;
+        PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
+        PlayerVars.instance.isUsingMenu = true;
+        Time.timeScale = 1;
+        GetComponent<AudioListener>().enabled = true;
     }
 
     public void GoToSquid()
     {
-        transform.SetParent(squidCamTransform);
-        timer = 0;
+        if (hasAlreadyDoneTutorial == false)
+        {
+            GetComponent<AudioListener>().enabled = false;
+            transform.SetParent(squidCamTransform);
+            timer = 0;
 
-        squid.SetActive(true);
-        squidTransition = true;
+            squid.SetActive(true);
+            PlayerVars.instance.isUsingMenu = false;
+            squidTransition = true;
+
+            hasAlreadyDoneTutorial = true;
+        }
+        else
+        {
+            LoadScene("Level_1");
+        }
     }
 }

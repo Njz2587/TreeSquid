@@ -161,7 +161,7 @@ namespace Invector.CharacterController
             
             if(PlayerVars.instance)
             {
-                if(PlayerVars.instance.sceneState == PlayerVars.SceneState.PlayerPaused)
+                if(PlayerVars.instance.sceneState == PlayerVars.SceneState.PlayerPaused || PlayerVars.instance.isUsingMenu == true)
                 {
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;

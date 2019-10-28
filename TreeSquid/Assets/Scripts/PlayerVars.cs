@@ -29,6 +29,8 @@ public class PlayerVars : MonoBehaviour
     public GameObject player; //The player defined by the start method of the player
     [HideInInspector]
     public static PlayerVars instance; //Singleton
+    [HideInInspector]
+    public bool isUsingMenu = false; //Check if using menu so cursor doesn't go away
 
     private bool isReseting = false;
     #endregion
@@ -66,6 +68,8 @@ public class PlayerVars : MonoBehaviour
         }
     }
 
+
+
     /// <summary>
     /// Identify if the player has reached the max detection
     /// </summary>
@@ -97,7 +101,7 @@ public class PlayerVars : MonoBehaviour
                 PlayerVars.instance.ResetToCheckPoint(0);
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Escape))
+        else if(Input.GetKeyDown(KeyCode.Escape) && isUsingMenu == false)
         {
             if(sceneState != SceneState.PlayerPaused)
             {
@@ -119,6 +123,17 @@ public class PlayerVars : MonoBehaviour
         {
             ResetToCheckPoint(0, 0);
         }
+    }
+
+    public void InitializeSquid()
+    {
+        sceneState = SceneState.PlayerActive;
+        Time.timeScale = 1;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        EnablePlayer();
     }
 
     /// <summary>
