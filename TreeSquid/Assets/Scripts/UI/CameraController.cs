@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         squidCamTransform.rotation = squidCamT.rotation;
 
         m_camera = GetComponent<Camera>();
+        GetComponent<AudioListener>().enabled = true;
     }
     private void Start()
     {
