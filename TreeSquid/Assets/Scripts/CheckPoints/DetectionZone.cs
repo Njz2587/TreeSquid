@@ -19,6 +19,10 @@ public class DetectionZone : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip instantDeathSound;
 
+    [Header("Particle Settings")]
+    [Space(10)]
+    public GameObject instantDeathParticle;
+
     [Header("Gizmo Control")]
     [Space(10)]
     public GizmoDrawObject drawObject;
@@ -35,9 +39,23 @@ public class DetectionZone : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// Sets up game volume
+    /// </summary>
+    private void Start()
+    {
+        if(GameVars.instance)
+        {
+            if(audioSource)
+            {
+                audioSource.volume = audioSource.volume * GameVars.instance.gameSFXVolumeScale;
+            }
+        }
+    }
+
+    /// <summary>
     /// Either increment the detection value or reset to checkpoint if squid is within
     /// </summary>
-    void Update()
+    private void Update()
     {
         if(currentlyInContact)
         {
@@ -55,6 +73,10 @@ public class DetectionZone : MonoBehaviour
                         if(audioSource && instantDeathSound)
                         {
                             audioSource.PlayOneShot(instantDeathSound);
+                        }
+                        if(instantDeathParticle)
+                        {
+                            Instantiate(instantDeathParticle, PlayerVars.instance.player.transform.position, Quaternion.Euler(-90,0,0));
                         }
                         PlayerVars.instance.ResetToCheckPoint(instantDetectionIncrement);
                     }

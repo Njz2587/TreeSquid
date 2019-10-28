@@ -27,6 +27,12 @@ public class AudioPhysicsObject : MonoBehaviour
     private void PlayerCollideAudio(Collision col)
     {
         audioSource.volume = ScaleVolumeToForce((col.impulse / Time.fixedDeltaTime).magnitude, 250);
+
+        if (GameVars.instance)
+        {
+            audioSource.volume = GameVars.instance.gameSFXVolumeScale * audioSource.volume;
+        }
+
         if (audioSource.isPlaying == false)
         {
             audioSource.PlayOneShot(collisionSound);

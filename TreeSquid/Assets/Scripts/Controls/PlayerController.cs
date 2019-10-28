@@ -290,6 +290,11 @@ public class PlayerController : MonoBehaviour
     private void PlaySquidSound(SquidSound soundTypeToPlay, float volume)
     {
         audioSource.volume = volume;
+        if(GameVars.instance)
+        {
+            audioSource.volume = audioSource.volume * GameVars.instance.gameSFXVolumeScale;
+        }
+
         switch(soundTypeToPlay)
         {
             case SquidSound.Detatch:
