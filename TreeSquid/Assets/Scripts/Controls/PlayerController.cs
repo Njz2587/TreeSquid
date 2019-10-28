@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     public float MAX_FORCE = 330000; //The Value The Player Can Charge Too
     public float chargeIndex = 4000; //The Index The Value Charges By Each Frame While Held
+    [HideInInspector]
+    public float playerLaunchPower;
 
     [Header("UI Settings")]
     [Space(10)]
@@ -40,7 +42,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 ignoreVector = new Vector3(1, 0, 1);
 
     private float nudgePower;
-    private float playerLaunchPower;
 
     private Vector2 iconSize = new Vector2(30, 400);
     private Vector2 uiOffset = new Vector2(20, 20);
@@ -94,21 +95,6 @@ public class PlayerController : MonoBehaviour
         if (stuckOnObject != null)
         {
             Gizmos.DrawSphere(stuckOnObject.transform.position, 0.2f);
-        }
-    }
-
-    /// <summary>
-    /// Draws Charge Meter
-    /// </summary>
-    private void OnGUI()
-    {
-        //Launch power
-        if (playerLaunchPower > 0)
-        {
-            Rect playerBarRect = new Rect(uiOffset.x, Screen.height - uiOffset.y, Screen.width / iconSize.x, (playerLaunchPower / (MAX_FORCE/(iconSize.y)) * -1));
-            GUI.DrawTexture(GetShadowRect(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), 2f, new Rect(1, 1, 1, 1)), whiteBoarder, ScaleMode.StretchToFill, true, 10.0F, Color.white, 0, 0);
-            GUI.DrawTexture(GetShadowRect(playerBarRect, boarderRadius, new Rect(1, 1, 1, 1)), progressBarEmpty, ScaleMode.StretchToFill, true, 10.0F, Color.black, 0, 0);
-            GUI.DrawTexture(playerBarRect, progressBarFull, ScaleMode.StretchToFill, true, 10.0F, Color.red, 0, 0);
         }
     }
 

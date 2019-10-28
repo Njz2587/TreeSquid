@@ -141,7 +141,7 @@ public class PlayerVars : MonoBehaviour
     /// <summary>
     /// Disables the player's controls and makes them inactive and invisible
     /// </summary>
-    private void DisablePlayer()
+    public void DisablePlayer()
     {
         sceneState = SceneState.PlayerDisabled;
         player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
@@ -154,7 +154,7 @@ public class PlayerVars : MonoBehaviour
     /// <summary>
     /// Enables the player's controls and makes them active and visible
     /// </summary>
-    private void EnablePlayer()
+    public void EnablePlayer()
     {
         sceneState = SceneState.PlayerActive;
         player.GetComponent<Rigidbody>().isKinematic = false;
