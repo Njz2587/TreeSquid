@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8792790910581304718}
   - component: {fileID: 8402247650893988241}
   - component: {fileID: 7849454026982679837}
+  - component: {fileID: 2228486407846996804}
   m_Layer: 0
   m_Name: SM_Env_Cave_Background_02_DoubleSided
   m_TagString: Untagged
@@ -93,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.3364124, y: 6.6229553, z: 46.918564}
-  m_Center: {x: 19.683311, y: 19.770962, z: 0.0000038146973}
+  m_Size: {x: 6.8225365, y: 6.6229553, z: 46.918564}
+  m_Center: {x: 19.426374, y: 19.770962, z: 0.0000038146973}
 --- !u!65 &4472791352158100823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,8 +107,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.389763, y: 6.6820984, z: 46.918564}
-  m_Center: {x: 16.550026, y: 15.1297035, z: 0.0000038146973}
+  m_Size: {x: 4.924389, y: 5.9745293, z: 46.918564}
+  m_Center: {x: 16.317335, y: 15.483488, z: 0.0000038146973}
 --- !u!65 &8792790910581304718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,3 +148,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.1001425, y: 7.1527557, z: 46.918564}
   m_Center: {x: 2.3288503, y: 2.5246086, z: 0.0000038146973}
+--- !u!65 &2228486407846996804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.3931541, y: 2.9651604, z: 46.918564}
+  m_Center: {x: 11.878019, y: 7.8314114, z: 0.0000038146973}
