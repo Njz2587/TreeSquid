@@ -87,6 +87,7 @@ public class AIGuardStateMachine : AIStateMachine
     public GameObject AlertSymbol { get { return _alertSymbol; } }
     public GameObject AlarmSymbol { get { return _alarmSymbol; } }
     public GuardHeadControl HeadControl { get; set; }
+    public AILineOfSightCone SightCone { get; set; }
 
     protected override void Start()
     {
@@ -173,6 +174,7 @@ public class AIGuardStateMachine : AIStateMachine
         // Make sure we ain't already knocked out
         if (IsAwake)
         {
+            Debug.Log("Died");
             // Set IsAwake to false
             IsAwake = false;
             _currentState = null;

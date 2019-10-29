@@ -222,7 +222,7 @@ public abstract class AIStateMachine : MonoBehaviour
                 {
                     // Add this body part to the list of body parts
                     _bodyParts.Add(bodyPart);
-                    Debug.Log("" + AIManager.Instance.gameObject);
+                    //Debug.Log("" + AIManager.Instance.gameObject);
                     // Register the state machine
                     AIManager.Instance.RegisterAIStateMachine(bodyPart.GetInstanceID(), this);
                 }
@@ -246,7 +246,7 @@ public abstract class AIStateMachine : MonoBehaviour
         // Set the sensor trigger's parent to this state machine
         if (_sensorTrigger != null)
         {
-            Debug.Log("Getting sensor shit");
+            //Debug.Log("Getting sensor shit");
             AISensor sensorScript = _sensorTrigger.GetComponent<AISensor>();
             if (sensorScript != null)
             {
