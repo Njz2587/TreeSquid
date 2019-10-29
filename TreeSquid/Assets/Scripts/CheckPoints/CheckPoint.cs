@@ -146,8 +146,6 @@ public class ResetObject
 
         audioPhysicsObject.audioSource = audioSource;
         audioPhysicsObject.collisionSound = collisionSound;
-
-
     }
 
     /// <summary>

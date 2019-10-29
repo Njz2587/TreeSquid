@@ -12,6 +12,7 @@ public class ControlsUI : MonoBehaviour
 
     [SerializeField] private Slider power;
     [SerializeField] private PlayerController player;
+    [SerializeField] private Image crosshair;
 
     private void OnEnable()
     {
@@ -31,6 +32,7 @@ public class ControlsUI : MonoBehaviour
     private void Update()
     {
         power.value = player.playerLaunchPower / player.MAX_FORCE;
+        crosshair.enabled = power.value > 0;
 
         if (Input.GetKeyDown(KeyCode.Q))
         {

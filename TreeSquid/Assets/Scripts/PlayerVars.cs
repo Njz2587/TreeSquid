@@ -62,9 +62,15 @@ public class PlayerVars : MonoBehaviour
 
         if(sceneMusic & audioSource)
         {
+            if (GameVars.instance)
+            {
+                audioSource.volume = GameVars.instance.gameMusicVolumeScale * audioSource.volume;
+            }
+
             audioSource.clip = sceneMusic;
             audioSource.loop = true;
             audioSource.Play();
+            
         }
     }
 

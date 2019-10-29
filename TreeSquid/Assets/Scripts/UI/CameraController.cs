@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         squidCamTransform.rotation = squidCamT.rotation;
 
         m_camera = GetComponent<Camera>();
+        GetComponent<AudioListener>().enabled = true;
     }
     private void Start()
     {
@@ -53,7 +54,7 @@ public class CameraController : MonoBehaviour
 
                 if (squidTransition)
                 {                  
-                    PlayerVars.instance.EnablePlayer();
+                    
                     controlsUI.gameObject.SetActive(true);
 
                     m_camera.enabled = (false);
@@ -74,7 +75,6 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //GoToCameraPosition(0);
             PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
             Time.timeScale = 1;
             PlayerVars.instance.isUsingMenu = false;
@@ -147,6 +147,7 @@ public class CameraController : MonoBehaviour
 
             squid.SetActive(true);
             PlayerVars.instance.isUsingMenu = false;
+            PlayerVars.instance.EnablePlayer();
             squidTransition = true;
 
             hasAlreadyDoneTutorial = true;
