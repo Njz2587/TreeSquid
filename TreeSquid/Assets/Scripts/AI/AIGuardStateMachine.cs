@@ -122,7 +122,7 @@ public class AIGuardStateMachine : AIStateMachine
     {
         // Call base Update functionality
         base.Update();
-
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (IsAwake)
@@ -130,6 +130,7 @@ public class AIGuardStateMachine : AIStateMachine
                 KnockOut();
             }
         }
+        */
         // Make sure the animator is valid, and if so, update animator with state machine values
         if (_animator != null && IsAwake)
         {
