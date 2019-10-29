@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4560855344133320678}
   - component: {fileID: 4568854721868448986}
   - component: {fileID: 5376572800065787362}
+  - component: {fileID: 7119718887345820986}
   m_Layer: 0
   m_Name: SM_Prop_Book_Group_01
   m_TagString: Untagged
@@ -91,3 +92,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5732459, y: 0.34261042, z: 0.30718872}
   m_Center: {x: -0.0000006109476, y: 0.1680266, z: -0.0000006109476}
+--- !u!54 &7119718887345820986
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554956469118306944}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
