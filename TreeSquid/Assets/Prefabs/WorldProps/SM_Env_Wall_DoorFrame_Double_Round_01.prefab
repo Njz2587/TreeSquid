@@ -14,13 +14,12 @@ GameObject:
   - component: {fileID: 3298625799418688383}
   - component: {fileID: 3589571365499330831}
   - component: {fileID: 2057918901130419979}
-  - component: {fileID: 3987192093110563023}
   m_Layer: 0
   m_Name: SM_Env_Wall_DoorFrame_Double_Round_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7517975453506633866
 Transform:
@@ -29,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7517975453506313738}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.267, y: 14.617, z: 146.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -120,16 +119,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0627022, y: 2.9221058, z: 0.42949295}
   m_Center: {x: -4.5296917, y: 1.4197683, z: 0.057518005}
---- !u!65 &3987192093110563023
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7517975453506313738}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5.178295, y: 5.067883, z: 0.42949295}
-  m_Center: {x: -2.4718914, y: 2.492658, z: 0.057518005}
