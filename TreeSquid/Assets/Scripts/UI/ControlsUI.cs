@@ -22,6 +22,7 @@ public class ControlsUI : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+            percentage.enabled = false;
             StartCoroutine(Tutorial());
         }
         else
