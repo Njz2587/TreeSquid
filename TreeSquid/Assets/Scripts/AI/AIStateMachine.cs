@@ -91,9 +91,10 @@ public abstract class AIStateMachine : MonoBehaviour
 
     // Public Properties
     public bool IsAwake { get; set; }
-    public bool isTargetReached { get { return _isTargetReached; } }
+    public bool PlayerIsVisible = false;
+    public bool isTargetReached { get { return _isTargetReached; } set { _isTargetReached = value; } }
     public AIStateType currentStateType { get { return _currentStateType; } }
-    public bool inMeleeRange { get; set; }
+    public bool inMeleeRange = false;
     public Animator animator { get { return _animator; } }
     public NavMeshAgent navAgent { get { return _navAgent; } }
     public Vector3 sensorPosition
@@ -229,13 +230,12 @@ public abstract class AIStateMachine : MonoBehaviour
             }
         }
 
-        /*
+        
         // Register the Layered Audio Source
         if (_animator && audioSource && AudioManager.instance)
         {
             _layeredAudioSource = AudioManager.instance.RegisterLayeredAudioSource(audioSource, _animator.layerCount);
         }
-        */
     }
 
     /// <summary>
@@ -341,7 +341,7 @@ public abstract class AIStateMachine : MonoBehaviour
             SetTarget(AITargetType.Waypoint,
                         null,
                         newWaypoint.position,
-                        Vector3.Distance(newWaypoint.position, transform.position));
+                        HelperMethods.QuickDistance(newWaypoint.position, transform.position));
 
             return newWaypoint.position;
         }
@@ -395,6 +395,13 @@ public abstract class AIStateMachine : MonoBehaviour
             _targetTrigger.transform.position = _target.position;
             _targetTrigger.enabled = true;
         }
+
+        // Check if the new target is not a player
+        if (_target.type != AITargetType.Visual_Player && PlayerIsVisible)
+        {
+            // Player is no longer visible
+            PlayerIsVisible = false;
+        }
     }
 
     /// <summary>
@@ -419,6 +426,13 @@ public abstract class AIStateMachine : MonoBehaviour
             _targetTrigger.transform.position = _target.position;
             _targetTrigger.enabled = true;
         }
+
+        // Check if the new target is not a player
+        if (_target.type != AITargetType.Visual_Player && PlayerIsVisible)
+        {
+            // Player is no longer visible
+            PlayerIsVisible = false;
+        }
     }
 
     /// <summary>
@@ -438,6 +452,13 @@ public abstract class AIStateMachine : MonoBehaviour
             _targetTrigger.transform.position = t.position;
             _targetTrigger.enabled = true;
         }
+
+        // Check if the new target is not a player
+        if (_target.type != AITargetType.Visual_Player && PlayerIsVisible)
+        {
+            // Player is no longer visible
+            PlayerIsVisible = false;
+        }
     }
 
     /// <summary>
@@ -445,6 +466,11 @@ public abstract class AIStateMachine : MonoBehaviour
     /// </summary>
     public void ClearTarget()
     {
+        // Check if it's the player that is being targeted
+        if (_target.type == AITargetType.Visual_Player && PlayerIsVisible)
+        {
+            PlayerIsVisible = false;
+        }
         _target.Clear();
        
         
@@ -469,7 +495,7 @@ public abstract class AIStateMachine : MonoBehaviour
 
         if (_target.type != AITargetType.None)
         {
-            _target.distance = Vector3.Distance(_transform.position, _target.position);
+            _target.distance = HelperMethods.QuickDistance(_transform.position, _target.position);
         }
 
         _isTargetReached = false;
@@ -516,6 +542,8 @@ public abstract class AIStateMachine : MonoBehaviour
     {
         if (_targetTrigger == null || other != _targetTrigger) return;
 
+
+        Debug.Log("Trigger Enter: " + other.gameObject);
         _isTargetReached = true;
         // Notify Child State
         if (_currentState)
@@ -604,7 +632,6 @@ public abstract class AIStateMachine : MonoBehaviour
 
         //Debug.Log("Adding Root Motion Request "+rootPosition+"   and    "+rootRotation);
     }
-
 
     /// <summary>
     /// Called upon the destruction of the object

@@ -14,7 +14,7 @@ public abstract class AIGuardState : AIState
     void Awake()
     {
         // Get a mask for line of sight testing with the player
-        _playerLayerMask = LayerMask.GetMask("Squid", "AI Body Part", "Floor", "Ceiling") + 1;
+        _playerLayerMask = LayerMask.GetMask("Squid", "AI Body Part") + 1;
         _visualLayerMask = LayerMask.GetMask("Squid", "AI Body Part", "Visual Aggravator") + 1;
 
         // Get the layer index of the AI Body Part layer
@@ -48,10 +48,10 @@ public abstract class AIGuardState : AIState
             // What is the type of the current visual threat we have stored
             AITargetType curType = _guardStateMachine.VisualThreat.type;
             // Is the collider that has entered our sensor a player
-            if (other.CompareTag("Player"))
+            if (!other.CompareTag("Player"))
             {
                 // Get distance from the sensor origin to the collider
-                float distance = Vector3.Distance(_guardStateMachine.sensorPosition, other.transform.position);
+                float distance = HelperMethods.QuickDistance(_guardStateMachine.sensorPosition, other.transform.position);
 
                 // If the currently stored threat is not a player or if this player is closer than a player
                 // previously stored as the visual threat...this could be more important
@@ -62,16 +62,27 @@ public abstract class AIGuardState : AIState
                     RaycastHit hitInfo;
                     if (ColliderIsVisible(other, out hitInfo, _playerLayerMask))
                     {
-                        Debug.Log("Player is visible!");
-                        // Player is spotted, play the alarm effect!
-                        StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
-                        _guardStateMachine.PlayerIsVisible = true;
-                        // Yep...it's close and in our FOV and we have line of sight so store as the current most dangerous threat
-                        _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
-                    }
-                    else
-                    {
-                        _guardStateMachine.PlayerIsVisible = false;
+                        if (_guardStateMachine.targetType != AITargetType.Visual_Player)
+                        {
+                            _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
+                        }
+
+                        /*
+                        if (!_guardStateMachine.PlayerIsVisible)
+                        {
+                            Debug.Log("Player is visible!");
+                            // Player is spotted, play the alarm effect!
+                            //StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
+                            _guardStateMachine.PlayerIsVisible = true;
+                            // Yep...it's close and in our FOV and we have line of sight so store as the current most dangerous threat
+                            _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
+                        }
+                        else if (_guardStateMachine.PlayerIsVisible)
+                        {
+                            Debug.Log("Player lost!");
+                            _guardStateMachine.PlayerIsVisible = false;
+                        }
+                        */
                     }
                 }
                 /*
@@ -155,9 +166,10 @@ public abstract class AIGuardState : AIState
         if (_guardStateMachine == null) return false;
 
         // Calculate the angle between the sensor origin and the direction of the collider
-        Vector3 head = _guardStateMachine.HeadControl.eyeTransform.position;
+        //Vector3 head = _guardStateMachine.EyePosition;
+        Vector3 head = _guardStateMachine.sensorPosition;
         Vector3 direction = other.transform.position - head;
-        Debug.DrawLine(head, other.transform.position, Color.magenta);
+
 
         //float angle = Vector3.Angle(direction, _guardStateMachine.eyeTransform.forward);
         float angle = Vector3.Angle(direction, transform.forward);
@@ -222,6 +234,7 @@ public abstract class AIGuardState : AIState
         // so return true.
         if (closestCollider && closestCollider.gameObject == other.gameObject)
         {
+            Debug.DrawLine(head, other.transform.position, Color.magenta);
             return true;
         }
 

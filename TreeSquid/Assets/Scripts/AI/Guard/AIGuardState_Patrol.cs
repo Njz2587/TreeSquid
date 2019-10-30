@@ -53,8 +53,15 @@ public class AIGuardState_Patrol : AIGuardState
         // Do we have a visual threat that is the player
         if (_guardStateMachine.VisualThreat.type == AITargetType.Visual_Player)
         {
+            _guardStateMachine.ClearTarget();
             // Set the target to be the player (the current visual threat)
             _guardStateMachine.SetTarget(_guardStateMachine.VisualThreat);
+            // Check if we do not already see the player
+            if (!_guardStateMachine.PlayerIsVisible)
+            {
+                //StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
+                _guardStateMachine.PlayerIsVisible = true;
+            }
             // Go into pursuit!
             return AIStateType.Pursuit;
         }
@@ -72,7 +79,7 @@ public class AIGuardState_Patrol : AIGuardState
         if (_guardStateMachine.navAgent.pathPending)
         {
             _guardStateMachine.speed = 0;
-            Debug.Log("Path was pending, going into patrol again!");
+            //Debug.Log("Path was pending, going into patrol again!");
             return AIStateType.Patrol;
         }
         else

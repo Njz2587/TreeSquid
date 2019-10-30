@@ -39,12 +39,13 @@ public class AIGuardState_Pursuit : AIGuardState
         if (_guardStateMachine == null)
             return;
 
+        Debug.Log("Entered pursuit");
         // Configure State Machine
         _guardStateMachine.NavAgentControl(true, false);
         _guardStateMachine.seeking = 0;
         _guardStateMachine.attackType = 0;
 
-        // Zombies will only pursue for so long before breaking off
+        // Guards will only pursue for so long before breaking off
         _timer = 0.0f;
         _repathTimer = 0.0f;
 
@@ -69,6 +70,12 @@ public class AIGuardState_Pursuit : AIGuardState
         if (_timer > _maxDuration)
             return AIStateType.Patrol;
 
+        // IF we are chasing the player and have entered the melee trigger then attack
+        if (_guardStateMachine.targetType == AITargetType.Visual_Player && _guardStateMachine.inMeleeRange)
+        {
+            Debug.Log("Going into attack state");
+            return AIStateType.Attack;
+        }
         // Otherwise this is navigation to areas of interest so use the standard target threshold
         if (_guardStateMachine.isTargetReached)
         {
@@ -90,6 +97,7 @@ public class AIGuardState_Pursuit : AIGuardState
             (!_guardStateMachine.navAgent.hasPath && !_guardStateMachine.navAgent.pathPending) ||
             _guardStateMachine.navAgent.pathStatus != UnityEngine.AI.NavMeshPathStatus.PathComplete)
         {
+            Debug.Log("Path stale or something in pursuit");
             // Go into the alert state
             return AIStateType.Alerted;
         }
@@ -98,14 +106,8 @@ public class AIGuardState_Pursuit : AIGuardState
             _guardStateMachine.speed = 0;
         else
         {
-            if (_guardStateMachine.isInvestigating)
-            {
-                _guardStateMachine.speed = 1.0f;
-            }
-            else
-            {
-                _guardStateMachine.speed = _speed;
-            }
+            //Debug.Log("Reached here");
+            _guardStateMachine.speed = _speed;
 
 
             // If we are close to the target that was a player and we still have the player in our vision then keep facing right at the player
@@ -117,7 +119,7 @@ public class AIGuardState_Pursuit : AIGuardState
                 _guardStateMachine.transform.rotation = newRot;
             }
             else
-            // SLowly update our rotation to match the nav agents desired rotation BUT only if we are not pursuing the player and are really close to them
+            // Slowly update our rotation to match the nav agents desired rotation BUT only if we are not pursuing the player and are really close to them
             if (!_stateMachine.useRootRotation && !_guardStateMachine.isTargetReached)
             {
                 // Generate a new Quaternion representing the rotation we should have
@@ -126,11 +128,14 @@ public class AIGuardState_Pursuit : AIGuardState
                 // Smoothly rotate to that new rotation over time
                 _guardStateMachine.transform.rotation = Quaternion.Slerp(_guardStateMachine.transform.rotation, newRot, Time.deltaTime * _slerpSpeed);
             }
+            
             else if (_guardStateMachine.isTargetReached)
             {
+                Debug.Log("Dumb AI thinks it has reached its target");
                 // Go into alert
                 return AIStateType.Alerted;
             }
+            
         }
 
         // Do we have a visual threat that is the player

@@ -26,6 +26,7 @@ public class GuardHeadControl : MonoBehaviour
 
     }
 
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         // Check if there is a valid state machine
@@ -37,10 +38,15 @@ public class GuardHeadControl : MonoBehaviour
                 // Check if the guard is awake
                 if (_guardStateMachine.IsAwake && collision.collider.gameObject.GetComponent<Rigidbody>())
                 {
+                    Debug.Log("" + collision.collider.gameObject);
                     // Check knock out force
-                    _guardStateMachine.CheckKnockOutForce(collision.impulse / Time.fixedDeltaTime);
+                    Debug.DrawLine(transform.position, collision.contacts[0].point, Color.red);
+
+                    Debug.Break();
+                    //_guardStateMachine.CheckKnockOutForce(collision.impulse / Time.fixedDeltaTime);
                 }
             }
         }
     }
+    */
 }

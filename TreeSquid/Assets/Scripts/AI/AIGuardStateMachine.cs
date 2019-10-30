@@ -12,6 +12,18 @@ public class BodyPartSnapshot
     public Quaternion rotation;
 }
 
+public class InitialGuardInfo
+{
+    public Vector3 position;
+    public Quaternion rotation;
+    public AIStateType initialState;
+
+    // Torch related stuff
+    public Transform torchParent;
+    public Vector3 initialTorchPosition;
+    public Quaternion initialTorchRotation;
+}
+
 public class AIGuardStateMachine : AIStateMachine
 {
     // Inspector Assigned Behaviour Variables
@@ -83,11 +95,16 @@ public class AIGuardStateMachine : AIStateMachine
         get { return _swordDrawn; }
         set { _swordDrawn = value; }
     }
-    public bool PlayerIsVisible { get; set; }
+    //public bool InMeleeRange { get; set; }
     public GameObject AlertSymbol { get { return _alertSymbol; } }
     public GameObject AlarmSymbol { get { return _alarmSymbol; } }
     public GuardHeadControl HeadControl { get; set; }
     public AILineOfSightCone SightCone { get; set; }
+    public Transform EyeTransform { get { return HeadControl.eyeTransform; } }
+    public Vector3 EyePosition { get { return HeadControl.eyeTransform.position; } }
+    //public bool PlayerIsVisible = false;
+
+    public InitialGuardInfo initGuardInfo;
 
     protected override void Start()
     {
@@ -115,6 +132,20 @@ public class AIGuardStateMachine : AIStateMachine
                 _bodyPartSnapShots.Add(snapShot);
             }
         }
+
+        // Set initial guard information
+        initGuardInfo = new InitialGuardInfo();
+        initGuardInfo.position = transform.position;
+        initGuardInfo.rotation = transform.rotation;
+        initGuardInfo.initialState = currentStateType;
+        // Set initial torch information too
+        if (_torchObject)
+        {
+            initGuardInfo.torchParent = _torchObject.transform.parent;
+            initGuardInfo.initialTorchPosition = _torchObject.transform.localPosition;
+            initGuardInfo.initialTorchRotation = _torchObject.transform.localRotation;
+        }
+
     }
 
 
@@ -158,6 +189,7 @@ public class AIGuardStateMachine : AIStateMachine
         // Before anything, make sure the guard is awake
         if (IsAwake)
         {
+            Debug.Log("Checking Knockout Force");
             // Check if the magnitude of the force is enough to knock out the guard
             if (inputtedForce.magnitude >= minForceToKnockOut)
             {
@@ -244,4 +276,55 @@ public class AIGuardStateMachine : AIStateMachine
         _alarmSymbol.SetActive(false);
     }
     #endregion
+
+    private void ResetAI()
+    {
+        // Reset values
+        _speed = 0;
+        _attackType = 0;
+        _seeking = 0;
+
+        // Check if the guard is not awake
+        if (!IsAwake)
+        {
+            // Stop ragdolling!
+            foreach (Rigidbody body in _bodyParts)
+            {
+                body.useGravity = false;
+                body.isKinematic = true;
+            }
+            // Enable the animator
+            _animator.enabled = true;
+            _navAgent.enabled = true;
+
+            // Enable the GuardHeadControl component
+            HeadControl.enabled = true;
+            // Check if we have a torch
+            if (_torchObject)
+            {
+                // Reparent the torch
+                _torchObject.transform.parent = initGuardInfo.torchParent;
+                // Get the rigidbody
+                Rigidbody torchRigidbody = _torchObject.GetComponent<Rigidbody>();
+                // Make sure the rigidbody is valid
+                if (torchRigidbody)
+                {
+                    // Make it kinematic
+                    torchRigidbody.isKinematic = true;
+                    // Disable gravity
+                    torchRigidbody.useGravity = false;
+                }
+                // Reset local position and rotation
+                _torchObject.transform.localPosition = initGuardInfo.initialTorchPosition;
+                _torchObject.transform.localRotation = initGuardInfo.initialTorchRotation;
+            }
+            // Clear all target info
+            ClearTarget();
+            // Set the AI back to its original state
+            SetStateOverride(initGuardInfo.initialState);
+
+        }
+    }
+
+
 }
