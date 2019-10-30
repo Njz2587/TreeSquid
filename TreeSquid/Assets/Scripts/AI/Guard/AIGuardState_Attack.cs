@@ -41,6 +41,7 @@ public class AIGuardState_Attack : AIGuardState
         if (_guardStateMachine.inMeleeRange)
         {
             PlayerVars.instance.ResetToCheckPoint(10);
+            Instantiate(_guardStateMachine.caughtSquidEffect, PlayerVars.instance.player.transform.position, Quaternion.Euler(-90, 0, 0));
         }
     }
 

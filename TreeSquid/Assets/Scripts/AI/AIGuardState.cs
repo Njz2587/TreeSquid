@@ -55,8 +55,7 @@ public abstract class AIGuardState : AIState
 
                 // If the currently stored threat is not a player or if this player is closer than a player
                 // previously stored as the visual threat...this could be more important
-                if (curType != AITargetType.Visual_Player ||
-                    (curType == AITargetType.Visual_Player && distance < _guardStateMachine.VisualThreat.distance))
+                if (curType != AITargetType.Visual_Player)
                 {
                     // Is the collider within our view cone and do we have line or sight
                     RaycastHit hitInfo;

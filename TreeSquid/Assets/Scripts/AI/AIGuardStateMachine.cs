@@ -103,7 +103,7 @@ public class AIGuardStateMachine : AIStateMachine
     public Transform EyeTransform { get { return HeadControl.eyeTransform; } }
     public Vector3 EyePosition { get { return HeadControl.eyeTransform.position; } }
     //public bool PlayerIsVisible = false;
-
+    public GameObject caughtSquidEffect;
     public InitialGuardInfo initGuardInfo;
 
     protected override void Start()
@@ -325,6 +325,5 @@ public class AIGuardStateMachine : AIStateMachine
 
         }
     }
-
 
 }

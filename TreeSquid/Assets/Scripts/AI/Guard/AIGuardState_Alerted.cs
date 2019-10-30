@@ -85,6 +85,10 @@ public class AIGuardState_Alerted : AIGuardState
             }
             */
 
+            Debug.Log("Going into Pursuit from Alert");
+            // Go into pursuit!
+            return AIStateType.Pursuit;
+            /*
             // Check if we do not already see the player
             if (!_guardStateMachine.PlayerIsVisible)
             {
@@ -103,6 +107,7 @@ public class AIGuardState_Alerted : AIGuardState
                 // Go into pursuit!
                 return AIStateType.Pursuit;
             }
+            */
 
             
         }
@@ -114,15 +119,10 @@ public class AIGuardState_Alerted : AIGuardState
             StartCoroutine(_guardStateMachine.ShowAlertSymbol());
             _timer = _maxDuration;
         }
-
-        if (_guardStateMachine.VisualThreat.type == AITargetType.Visual_Light)
-        {
-            _guardStateMachine.SetTarget(_guardStateMachine.VisualThreat);
-            _timer = _maxDuration;
-        }
-
-
+        
+        // BEGIN ANGLE FUCKERY
         float angle;
+
 
         if (_guardStateMachine.targetType == AITargetType.Audio && !_guardStateMachine.isTargetReached)
         {

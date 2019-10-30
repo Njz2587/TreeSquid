@@ -108,6 +108,22 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-7948640378579823508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07f6e149cce6a8458f157eb98b3aea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collection: {fileID: 0}
+  _bank: 0
+  _looping: 1
+  _stopOnExit: 0
 --- !u!1101 &-7774605987057905464
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -990,6 +1006,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &896861051767278143
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbacc34f755014498dc0e18a4e30f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioCollection: {fileID: 11400000, guid: 721ced8f653b4a5479dabdbd62b26f5d, type: 2}
+  _bank: 0
 --- !u!114 &1215614355417087494
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1441,7 +1471,9 @@ AnimatorState:
   m_Transitions:
   - {fileID: 6367669049331891417}
   - {fileID: 2361568606049661466}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 896861051767278143}
+  - {fileID: 7777402098701193518}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1470,6 +1502,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rootPosition: 1
   _rootRotation: 0
+--- !u!114 &7777402098701193518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbacc34f755014498dc0e18a4e30f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioCollection: {fileID: 11400000, guid: 50a17f9c101bb974391750377a3ee07e, type: 2}
+  _bank: 0
 --- !u!114 &7900791892142440740
 MonoBehaviour:
   m_ObjectHideFlags: 3

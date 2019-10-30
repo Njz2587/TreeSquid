@@ -543,7 +543,7 @@ public abstract class AIStateMachine : MonoBehaviour
         if (_targetTrigger == null || other != _targetTrigger) return;
 
 
-        Debug.Log("Trigger Enter: " + other.gameObject);
+        //Debug.Log("Trigger Enter: " + other.gameObject);
         _isTargetReached = true;
         // Notify Child State
         if (_currentState)
