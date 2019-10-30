@@ -9,6 +9,7 @@ public enum AITargetType { None, Waypoint, WanderPoint, Visual_Player, Visual_Li
 public enum AITriggerEventType { Enter, Stay, Exit }
 public enum AIBoneAlignmentType { XAxis, YAxis, ZAxis, XAxisInverted, YAxisInverted, ZAxisInverted }
 
+[System.Serializable]
 /// <summary>
 /// Describes a potential target to the AI
 /// </summary>

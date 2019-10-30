@@ -52,7 +52,6 @@ public abstract class AIGuardState : AIState
             {
                 // Get distance from the sensor origin to the collider
                 float distance = HelperMethods.QuickDistance(_guardStateMachine.sensorPosition, other.transform.position);
-
                 // If the currently stored threat is not a player or if this player is closer than a player
                 // previously stored as the visual threat...this could be more important
                 if (curType != AITargetType.Visual_Player)
@@ -61,10 +60,7 @@ public abstract class AIGuardState : AIState
                     RaycastHit hitInfo;
                     if (ColliderIsVisible(other, out hitInfo, _playerLayerMask))
                     {
-                        if (_guardStateMachine.targetType != AITargetType.Visual_Player)
-                        {
-                            _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
-                        }
+                        _guardStateMachine.VisualThreat.Set(AITargetType.Visual_Player, other, other.transform.position, distance);
 
                         /*
                         if (!_guardStateMachine.PlayerIsVisible)
