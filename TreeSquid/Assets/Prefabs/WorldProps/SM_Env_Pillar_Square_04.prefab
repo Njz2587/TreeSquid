@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7177221398325526981}
   - component: {fileID: 7177221398326543847}
   - component: {fileID: 5234125225089195457}
+  - component: {fileID: 7771144946344010965}
   m_Layer: 0
   m_Name: SM_Env_Pillar_Square_04
   m_TagString: Untagged
@@ -89,5 +90,18 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8935337, y: 2.3323257, z: 0.8939431}
-  m_Center: {x: 0.0000009536743, y: 1.1661628, z: 0.000000834465}
+  m_Size: {x: 0.8935337, y: 0.23275249, z: 0.8939431}
+  m_Center: {x: 0.0000009536743, y: 0.11637624, z: 0.000000834465}
+--- !u!65 &7771144946344010965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177221398328713847}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.54768395, y: 2.3323257, z: 0.57485455}
+  m_Center: {x: -0.003336688, y: 1.1661628, z: 0.009859721}
