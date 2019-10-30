@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class ControlsUI : MonoBehaviour
 {
-    [SerializeField] private RectTransform tutTransform;
-    private Text tutText;
-    private Image tutPanel;
+    [SerializeField] private Graphic tutorialPanel;
+    [SerializeField] private Text tutorialText;
+
+    [SerializeField] private Graphic pausePanel;
+    private bool paused;
 
     [SerializeField] private Slider power;
     [SerializeField] private PlayerController player;
@@ -16,17 +18,16 @@ public class ControlsUI : MonoBehaviour
 
     private void OnEnable()
     {
-        tutText = tutTransform.GetComponentInChildren<Text>();
-        tutPanel = tutTransform.GetComponent<Image>();
-
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             StartCoroutine(Tutorial());
         }
         else
         {
-            tutPanel.gameObject.SetActive(false);
+            tutorialPanel.gameObject.SetActive(false);
         }
+
+        //StartCoroutine(Fade(pausePanel, 0, 0, 0, 0));
     }
 
     private void Update()
@@ -39,6 +40,8 @@ public class ControlsUI : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(Tutorial());
         }
+
+        pausePanel.gameObject.SetActive(PlayerVars.instance.sceneState.Equals(PlayerVars.SceneState.PlayerPaused));
     }
 
     public IEnumerator Tutorial()
@@ -63,61 +66,83 @@ public class ControlsUI : MonoBehaviour
 
         ShowMessage("Q: replay tutorial", time, holdTime);
         yield return new WaitForSeconds(time * 2 + holdTime);
+
     }
 
 
-    private IEnumerator FadeInOut(Graphic graphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
+    private IEnumerator FadeInOut(Graphic parentGraphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
     {
         float elapsedTime = 0;
-        Color colorStart = graphic.color;
-        colorStart.a = alphaStart;
 
-        Color colorFinish = graphic.color;
-        colorFinish.a = alphaFinish;
+        Graphic[] graphics = parentGraphic.GetComponentsInChildren<Graphic>();
 
-        graphic.color = colorStart;
+        foreach (Graphic graphic in graphics)
+        {
+            graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alphaStart);
+        }
 
         while (elapsedTime < time)
         {
-            graphic.color = Color.Lerp(graphic.color, colorFinish, (elapsedTime / time));
+            float alphaNow = Mathf.Lerp(parentGraphic.color.a, alphaFinish, (elapsedTime / time));
+            foreach (Graphic graphic in graphics)
+            {
+                graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alphaNow);
+            }
+
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
-        StartCoroutine(Fade(graphic, alphaFinish, alphaStart, time, holdTime));
+        StartCoroutine(Fade(parentGraphic, alphaFinish, alphaStart, time, holdTime));
     }
 
-    private IEnumerator Fade(Graphic graphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
+    private IEnumerator Fade(Graphic parentGraphic, float alphaStart, float alphaFinish, float time = 2, float holdTime = 5)
     {
         float elapsedTime = 0;
-        Color colorStart = graphic.color;
-        colorStart.a = alphaStart;
 
-        Color colorFinish = graphic.color;
-        colorFinish.a = alphaFinish;
+        Graphic[] graphics = parentGraphic.GetComponentsInChildren<Graphic>();
 
-        graphic.color = colorStart;
+        foreach (Graphic graphic in graphics)
+        {
+            graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alphaStart);
+        }
 
         yield return new WaitForSeconds(holdTime);
 
         while (elapsedTime < time)
         {
-            graphic.color = Color.Lerp(graphic.color, colorFinish, (elapsedTime / time));
+            float alphaNow = Mathf.Lerp(parentGraphic.color.a, alphaFinish, (elapsedTime / time));
+            foreach (Graphic graphic in graphics)
+            {
+                graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alphaNow);
+            }
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
     }
 
+
+    public void Resume()
+    {
+        Debug.Log("Resume");
+        PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
+        Time.timeScale = 1;
+    }
+
     public void ShowMessage(string message, float time = 2, float holdTime = 5)
     {
-        tutText.text = message;
+        tutorialText.text = message;
         ShowMessage(time, holdTime);
+    }
+
+    public void LoadScene(string scenename)
+    {
+        SceneManager.LoadScene(scenename, LoadSceneMode.Single);
     }
 
     public void ShowMessage(float time = 2 , float holdTime = 5)
     {
-        StartCoroutine(FadeInOut(tutText, 0, 0.5f, time, holdTime));
-        StartCoroutine(FadeInOut(tutPanel, 0, 0.5f, time, holdTime));
+        StartCoroutine(FadeInOut(tutorialPanel, 0, 1, time, holdTime));
     }
 
     private void OnDisable()
