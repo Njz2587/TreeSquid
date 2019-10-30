@@ -16,6 +16,8 @@ public class ControlsUI : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private Image crosshair;
 
+    [SerializeField] private Text percentage;
+
     private void OnEnable()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
@@ -28,6 +30,7 @@ public class ControlsUI : MonoBehaviour
         }
 
         //StartCoroutine(Fade(pausePanel, 0, 0, 0, 0));
+        pausePanel.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -42,6 +45,8 @@ public class ControlsUI : MonoBehaviour
         }
 
         pausePanel.gameObject.SetActive(PlayerVars.instance.sceneState.Equals(PlayerVars.SceneState.PlayerPaused));
+
+        percentage.text = PlayerVars.instance.currentDetectionAmount + "%";
     }
 
     public IEnumerator Tutorial()
