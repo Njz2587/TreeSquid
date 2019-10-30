@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -84,10 +84,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 2
+    value: 5
   threshold:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 0.25
   softKnee:
     overrideState: 0
     value: 0.5
@@ -95,7 +95,7 @@ MonoBehaviour:
     overrideState: 0
     value: 65472
   diffusion:
-    overrideState: 0
+    overrideState: 1
     value: 7
   anamorphicRatio:
     overrideState: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 1
+    value: 2
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -194,15 +194,15 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 7.6
+    value: 4.9
   tint:
     overrideState: 0
     value: 0
   colorFilter:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    overrideState: 1
+    value: {r: 0.63274014, g: 0.6399584, b: 0.7578583, a: 1}
   hueShift:
-    overrideState: 0
+    overrideState: 1
     value: 0
   saturation:
     overrideState: 1
@@ -211,8 +211,8 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
-    value: 0.18
+    overrideState: 1
+    value: 1.7
   contrast:
     overrideState: 0
     value: 0
@@ -248,10 +248,10 @@ MonoBehaviour:
     value: {x: 1, y: 1, z: 1, w: 0.010330578}
   gamma:
     overrideState: 1
-    value: {x: 1, y: 1, z: 1, w: 0.196281}
+    value: {x: 1, y: 1, z: 1, w: 0.31497535}
   gain:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 1, y: 1, z: 1, w: 0.32217038}
   masterCurve:
     overrideState: 0
     value:
