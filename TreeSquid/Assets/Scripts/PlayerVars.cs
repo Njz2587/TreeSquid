@@ -165,7 +165,11 @@ public class PlayerVars : MonoBehaviour
     public void DisablePlayer()
     {
         sceneState = SceneState.PlayerDisabled;
-        player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        //player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+        foreach (SkinnedMeshRenderer skinnedMesh in player.GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            skinnedMesh.enabled = false;
+        }
         player.GetComponent<Rigidbody>().isKinematic = true;
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
         player.GetComponent<PlayerController>().ResetPlayerCharge();
@@ -179,7 +183,11 @@ public class PlayerVars : MonoBehaviour
     {
         sceneState = SceneState.PlayerActive;
         player.GetComponent<Rigidbody>().isKinematic = false;
-        player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        foreach(SkinnedMeshRenderer skinnedMesh in player.GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            skinnedMesh.enabled = true;
+        }
+        //player.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
     }
 
     /// <summary>
