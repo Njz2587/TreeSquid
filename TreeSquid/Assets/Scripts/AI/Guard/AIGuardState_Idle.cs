@@ -58,6 +58,12 @@ public class AIGuardState_Idle : AIGuardState
         {
             // Set the target of the Sword Husk
             _guardStateMachine.SetTarget(_guardStateMachine.VisualThreat);
+            // Check if we do not already see the player
+            if (!_guardStateMachine.PlayerIsVisible)
+            {
+                StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
+                _guardStateMachine.PlayerIsVisible = true;
+            }
             // Put Sword Husk into Pursuit State
             return AIStateType.Pursuit;
         }

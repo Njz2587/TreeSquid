@@ -43,6 +43,7 @@ public class AIGuardState_Alerted : AIGuardState
         _guardStateMachine.speed = 0;
         _guardStateMachine.seeking = 0;
         _guardStateMachine.attackType = 0;
+        //_guardStateMachine.ClearTarget();
 
         _timer = _maxDuration;
         _directionChangeTimer = 0.0f;
@@ -84,10 +85,31 @@ public class AIGuardState_Alerted : AIGuardState
             }
             */
 
-            // Player is spotted, play the alarm effect!
-            StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
+            Debug.Log("Going into Pursuit from Alert");
             // Go into pursuit!
             return AIStateType.Pursuit;
+            /*
+            // Check if we do not already see the player
+            if (!_guardStateMachine.PlayerIsVisible)
+            {
+                StartCoroutine(_guardStateMachine.ShowAlarmSymbol());
+                _guardStateMachine.PlayerIsVisible = true;
+            }
+
+            if (_guardStateMachine.inMeleeRange)
+            {
+                // Go into Attack!
+                return AIStateType.Attack;
+            }
+            else
+            {
+                Debug.Log("Going into Pursuit from Alert");
+                // Go into pursuit!
+                return AIStateType.Pursuit;
+            }
+            */
+
+            
         }
 
         if (_guardStateMachine.AudioThreat.type == AITargetType.Audio)
@@ -97,15 +119,10 @@ public class AIGuardState_Alerted : AIGuardState
             StartCoroutine(_guardStateMachine.ShowAlertSymbol());
             _timer = _maxDuration;
         }
-
-        if (_guardStateMachine.VisualThreat.type == AITargetType.Visual_Light)
-        {
-            _guardStateMachine.SetTarget(_guardStateMachine.VisualThreat);
-            _timer = _maxDuration;
-        }
-
-
+        
+        // BEGIN ANGLE FUCKERY
         float angle;
+
 
         if (_guardStateMachine.targetType == AITargetType.Audio && !_guardStateMachine.isTargetReached)
         {

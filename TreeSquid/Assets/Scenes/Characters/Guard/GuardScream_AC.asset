@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126c8442535390248a67a5a494ae3383, type: 3}
+  m_Name: GuardScream_AC
+  m_EditorClassIdentifier: 
+  _audioGroup: 
+  _volume: 0.75
+  _spatialBlend: 0.75
+  _priority: 128
+  _audioClipBanks:
+  - Clips:
+    - {fileID: 8300000, guid: ece0229199ecf124ab3b8bbef8560f13, type: 3}
