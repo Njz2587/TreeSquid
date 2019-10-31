@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126c8442535390248a67a5a494ae3383, type: 3}
+  m_Name: GuardDamage_AC
+  m_EditorClassIdentifier: 
+  _audioGroup: Master
+  _volume: 0.5
+  _spatialBlend: 1
+  _priority: 128
+  _audioClipBanks:
+  - Clips:
+    - {fileID: 8300000, guid: e1d09da519a38f042927414ce08b69cd, type: 3}
+    - {fileID: 8300000, guid: 7bdb6f86a6958fd4e86ed752776a2eca, type: 3}
+    - {fileID: 8300000, guid: 89a3163842bf627458671bc6a324dbd6, type: 3}
