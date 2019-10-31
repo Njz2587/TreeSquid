@@ -60,7 +60,7 @@ ModelImporter:
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
-    swapUVChannels: 0
+    swapUVChannels: 1
     generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
