@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Head
   - AI Sound Emitter
-  - Navigation Static
   layers:
   - Default
   - TransparentFX
