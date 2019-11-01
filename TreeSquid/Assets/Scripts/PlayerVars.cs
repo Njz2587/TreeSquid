@@ -199,6 +199,9 @@ public class PlayerVars : MonoBehaviour
         //Restart Scene
         Debug.Log("GAME OVER");
         GameOverAction();
+
+        instance.isUsingMenu = true;
+
         DisablePlayer();
 
         //StartCoroutine(RestartScene(GameOverResetDelay));

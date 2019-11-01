@@ -58,12 +58,9 @@ public class ControlsUI : MonoBehaviour
 
     public void ShowGameOver()
     {
-        Debug.Log("g");
         gameOverPanel.gameObject.SetActive(true);
-        StartCoroutine(Fade(gameOverPanel, 0, 1, 1, 0));
 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        StartCoroutine(Fade(gameOverPanel, 0, 1, 1, 0));
     }
 
     public IEnumerator Tutorial()
