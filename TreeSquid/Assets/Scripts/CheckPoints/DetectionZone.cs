@@ -136,6 +136,7 @@ public class DetectionZone : MonoBehaviour
         if(col.gameObject.layer == 11) //Squid
         {
             currentlyInContact = true;
+            EffectManager.Instance.ToggleVignette();
         }
     }
 
@@ -148,6 +149,7 @@ public class DetectionZone : MonoBehaviour
         if (col.gameObject.layer == 11) //Squid
         {
             currentlyInContact = false;
+            EffectManager.Instance.ToggleVignette();
         }
     }
 
