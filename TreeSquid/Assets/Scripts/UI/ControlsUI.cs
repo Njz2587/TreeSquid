@@ -45,10 +45,13 @@ public class ControlsUI : MonoBehaviour
         power.value = player.playerLaunchPower / player.MAX_FORCE;
         crosshair.enabled = power.value > 0;
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            StopAllCoroutines();
-            StartCoroutine(Tutorial());
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                StopAllCoroutines();
+                StartCoroutine(Tutorial());
+            }
         }
 
         pausePanel.gameObject.SetActive(PlayerVars.instance.sceneState.Equals(PlayerVars.SceneState.PlayerPaused));

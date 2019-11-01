@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6315594312261718819}
   - component: {fileID: 5978485081362974450}
   - component: {fileID: 5080329932761506756}
+  - component: {fileID: 8002000061258278754}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -165,6 +166,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1000, y: 1000, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8002000061258278754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315594312261718812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995a9df6d442ba940aca7fe1310f8098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postProcessVolume: {fileID: 0}
+  defaultPostProcessProfile: {fileID: 11400000, guid: fc45240973fffbb498e8892bd57cf7d5,
+    type: 2}
+  vignettePostProcessProfile: {fileID: 11400000, guid: 4195b206ae374a749b101b47737773d6,
+    type: 2}
+  vignetteActive: 0
 --- !u!1 &7323204976212848227
 GameObject:
   m_ObjectHideFlags: 0

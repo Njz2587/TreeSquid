@@ -22,17 +22,20 @@ public class EffectManager : MonoBehaviour
         }
     }
 
-    public void ToggleVignette()
+    private void Update()
     {
-        if (!vignetteActive)
+        if(vignetteActive)
         {
-            vignetteActive = true;
             postProcessVolume.profile = vignettePostProcessProfile;
         }
         else
         {
-            vignetteActive = false;
             postProcessVolume.profile = defaultPostProcessProfile;
         }
+    }
+
+    public void SetVignette(bool set)
+    {
+        vignetteActive = set;
     }
 }

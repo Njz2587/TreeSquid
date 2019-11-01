@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_1_Fire.unity
     guid: a787e368e39c9e64facc0f83e1dff374
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 07df217d281d6ed449cd372a9dde9c37
+  - enabled: 1
+    path: Assets/Scenes/Level_2_Flipped.unity
+    guid: dfbda031fdd65a343aa767faba2fb2c9
   m_configObjects: {}
