@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,7 +34,11 @@ public class PlayerVars : MonoBehaviour
     public bool isUsingMenu = false; //Check if using menu so cursor doesn't go away
 
     private bool isReseting = false;
+
     #endregion
+
+    public Action GameOverAction;  
+
     #endregion
 
     /// <summary>
@@ -105,6 +110,10 @@ public class PlayerVars : MonoBehaviour
             else if (comboKeyCode == "c")
             {
                 PlayerVars.instance.ResetToCheckPoint(0);
+            }
+            else if(comboKeyCode == "g")
+            {
+                GameOver();
             }
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && isUsingMenu == false)
@@ -189,8 +198,10 @@ public class PlayerVars : MonoBehaviour
     {
         //Restart Scene
         Debug.Log("GAME OVER");
+        GameOverAction();
         DisablePlayer();
-        StartCoroutine(RestartScene(GameOverResetDelay));
+
+        //StartCoroutine(RestartScene(GameOverResetDelay));
     }
 
     /// <summary>

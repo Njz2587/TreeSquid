@@ -10,6 +10,7 @@ public class ControlsUI : MonoBehaviour
     [SerializeField] private Text tutorialText;
 
     [SerializeField] private Graphic pausePanel;
+    [SerializeField] private Graphic gameOverPanel;
     private bool paused;
 
     [SerializeField] private Slider power;
@@ -17,6 +18,8 @@ public class ControlsUI : MonoBehaviour
     [SerializeField] private Image crosshair;
 
     [SerializeField] private Text percentage;
+
+
 
     private void OnEnable()
     {
@@ -32,6 +35,9 @@ public class ControlsUI : MonoBehaviour
 
         //StartCoroutine(Fade(pausePanel, 0, 0, 0, 0));
         pausePanel.gameObject.SetActive(false);
+        StartCoroutine(Fade(gameOverPanel, 0, 0, 0, 0));
+
+        PlayerVars.instance.GameOverAction += ShowGameOver;
     }
 
     private void Update()
@@ -48,6 +54,16 @@ public class ControlsUI : MonoBehaviour
         pausePanel.gameObject.SetActive(PlayerVars.instance.sceneState.Equals(PlayerVars.SceneState.PlayerPaused));
 
         percentage.text = PlayerVars.instance.currentDetectionAmount + "%";
+    }
+
+    public void ShowGameOver()
+    {
+        Debug.Log("g");
+        gameOverPanel.gameObject.SetActive(true);
+        StartCoroutine(Fade(gameOverPanel, 0, 1, 1, 0));
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public IEnumerator Tutorial()
@@ -135,6 +151,11 @@ public class ControlsUI : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void ShowMessage(string message, float time = 2, float holdTime = 5)
     {
         tutorialText.text = message;
@@ -143,6 +164,7 @@ public class ControlsUI : MonoBehaviour
 
     public void LoadScene(string scenename)
     {
+        Debug.Log("Return to menu");
         SceneManager.LoadScene(scenename, LoadSceneMode.Single);
     }
 
