@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform[] cameraPositions;
 
-    private const float lerpTime = 1;
+    private const float lerpTime = 2;
     private float timer = 0;
 
     [SerializeField] private GameObject squid;
