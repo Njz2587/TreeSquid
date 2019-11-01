@@ -19,7 +19,10 @@ public class ControlsUI : MonoBehaviour
 
     [SerializeField] private Text percentage;
 
-
+    private void OnAwake()
+    {
+        PlayerVars.instance.GameOverAction += ShowGameOver;
+    }
 
     private void OnEnable()
     {
@@ -37,7 +40,7 @@ public class ControlsUI : MonoBehaviour
         pausePanel.gameObject.SetActive(false);
         StartCoroutine(Fade(gameOverPanel, 0, 0, 0, 0));
 
-        PlayerVars.instance.GameOverAction += ShowGameOver;
+        
     }
 
     private void Update()

@@ -299,36 +299,38 @@ public class AudioManager : MonoBehaviour
         // Do nothing if track does not exist, clip is null or volume is zero
         if (!_tracks.ContainsKey(track) || clip == null || volume.Equals(0.0f)) return 0;
 
-        float unimportance = (_listenerPos.position - position).sqrMagnitude / Mathf.Max(1, priority);
-
-        int leastImportantIndex = -1;
-        float leastImportanceValue = float.MaxValue;
-
-        // Find an available audio source to use
-        for (int i = 0; i < _pool.Count; i++)
+        if (_listenerPos)
         {
-            AudioPoolItem poolItem = _pool[i];
+            float unimportance = (_listenerPos.position - position).sqrMagnitude / Mathf.Max(1, priority);
 
-            // Is this source available
-            if (!poolItem.Playing)
-                return ConfigurePoolObject(i, track, clip, position, volume, spatialBlend, unimportance);
-            else
-            // We have a pool item that is less important than the one we are going to play
-            if (poolItem.Unimportance > leastImportanceValue)
+            int leastImportantIndex = -1;
+            float leastImportanceValue = float.MaxValue;
+
+            // Find an available audio source to use
+            for (int i = 0; i < _pool.Count; i++)
             {
-                // Record the least important sound we have found so far
-                // as a candidate to relace with our new sound request
-                leastImportanceValue = poolItem.Unimportance;
-                leastImportantIndex = i;
+                AudioPoolItem poolItem = _pool[i];
+
+                // Is this source available
+                if (!poolItem.Playing)
+                    return ConfigurePoolObject(i, track, clip, position, volume, spatialBlend, unimportance);
+                else
+                // We have a pool item that is less important than the one we are going to play
+                if (poolItem.Unimportance > leastImportanceValue)
+                {
+                    // Record the least important sound we have found so far
+                    // as a candidate to relace with our new sound request
+                    leastImportanceValue = poolItem.Unimportance;
+                    leastImportantIndex = i;
+                }
             }
+
+            // If we get here all sounds are being used but we know the least important sound currently being
+            // played so if it is less important than our sound request then use replace it
+            if (leastImportanceValue > unimportance)
+                return ConfigurePoolObject(leastImportantIndex, track, clip, position, volume, spatialBlend, unimportance);
+
         }
-
-        // If we get here all sounds are being used but we know the least important sound currently being
-        // played so if it is less important than our sound request then use replace it
-        if (leastImportanceValue > unimportance)
-            return ConfigurePoolObject(leastImportantIndex, track, clip, position, volume, spatialBlend, unimportance);
-
-
         // Could not be played (no sound in the pool available)
         return 0;
     }
