@@ -277,7 +277,7 @@ public class AIGuardStateMachine : AIStateMachine
     }
     #endregion
 
-    private void ResetAI()
+    public void ResetAI()
     {
         // Reset values
         _speed = 0;

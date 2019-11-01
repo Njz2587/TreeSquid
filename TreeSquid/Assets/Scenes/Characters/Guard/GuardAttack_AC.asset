@@ -18,4 +18,4 @@ MonoBehaviour:
   _priority: 128
   _audioClipBanks:
   - Clips:
-    - {fileID: 8300000, guid: 6d0e787c2c1f1bd4e969c1df2dde4b6a, type: 3}
+    - {fileID: 8300000, guid: 7aa1597fe40ff354a98438626d548118, type: 3}
