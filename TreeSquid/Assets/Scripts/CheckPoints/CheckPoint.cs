@@ -153,6 +153,13 @@ public class ResetObject
     /// </summary>
     public void ResetTransform()
     {
+        AIGuardStateMachine aiGuardStateMachine = resetObject.GetComponent<AIGuardStateMachine>();
+        if (aiGuardStateMachine)
+        {
+            Debug.Log("ResettingAI");
+            aiGuardStateMachine.ResetAI();
+        }
+
         Rigidbody resetRigidBody = resetObject.GetComponent<Rigidbody>();
         if (resetRigidBody != null)
         {

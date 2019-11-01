@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.name == "Player")
+        if(other.gameObject.layer == 11) //Squid Layer
         {
             SceneManager.LoadScene(sceneName);
         }
