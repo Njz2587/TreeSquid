@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         // Make the object persistent
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         // Handle singleton
         if (instance == null)
         {

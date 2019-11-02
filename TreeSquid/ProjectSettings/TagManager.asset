@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Head
   - AI Sound Emitter
+  - DetectionZone
   layers:
   - Default
   - TransparentFX

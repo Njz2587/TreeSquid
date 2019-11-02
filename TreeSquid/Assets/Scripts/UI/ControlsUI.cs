@@ -19,7 +19,7 @@ public class ControlsUI : MonoBehaviour
 
     [SerializeField] private Text percentage;
 
-    private void OnAwake()
+    private void Start()
     {
         PlayerVars.instance.GameOverAction += ShowGameOver;
     }

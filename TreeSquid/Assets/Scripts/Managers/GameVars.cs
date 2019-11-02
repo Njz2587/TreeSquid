@@ -18,6 +18,10 @@ public class GameVars : MonoBehaviour
         {
             instance = this;
         }
+        else if (instance != this)
+        {
+            Destroy(instance.gameObject);           
+        }
 
         DontDestroyOnLoad(gameObject);
     }

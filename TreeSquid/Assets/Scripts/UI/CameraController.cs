@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private GameObject squid;
     private Transform squidCamTransform;
-    private bool squidTransition = false, hasAlreadyDoneTutorial = false;
+    private bool squidTransition = false;
 
     [SerializeField] private ControlsUI controlsUI;
 
@@ -53,14 +53,18 @@ public class CameraController : MonoBehaviour
                 transform.localPosition = Vector3.zero;
 
                 if (squidTransition)
-                {                  
-                    
+                {                                    
                     controlsUI.gameObject.SetActive(true);
 
                     m_camera.enabled = (false);
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
                     ShowMenus(false);
+
+                    GetComponent<AudioListener>().enabled = false;
+                    squid.SetActive(true);
+                    PlayerVars.instance.isUsingMenu = false;
+                    PlayerVars.instance.EnablePlayer();
                 }
 
             }
@@ -75,10 +79,7 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            PlayerVars.instance.sceneState = PlayerVars.SceneState.PlayerActive;
-            Time.timeScale = 1;
-            PlayerVars.instance.isUsingMenu = false;
-            LoadScene("Level_1");
+            GoToCameraPosition(0);
         }
     }
 
@@ -139,22 +140,8 @@ public class CameraController : MonoBehaviour
 
     public void GoToSquid()
     {
-        if (hasAlreadyDoneTutorial == false)
-        {
-            GetComponent<AudioListener>().enabled = false;
-            transform.SetParent(squidCamTransform);
-            timer = 0;
-
-            squid.SetActive(true);
-            PlayerVars.instance.isUsingMenu = false;
-            PlayerVars.instance.EnablePlayer();
-            squidTransition = true;
-
-            hasAlreadyDoneTutorial = true;
-        }
-        else
-        {
-            LoadScene("Level_1");
-        }
+        transform.SetParent(squidCamTransform);
+        timer = 0;
+        squidTransition = true;
     }
 }

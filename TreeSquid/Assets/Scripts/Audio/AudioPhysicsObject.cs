@@ -35,7 +35,10 @@ public class AudioPhysicsObject : MonoBehaviour
 
         if (audioSource.isPlaying == false)
         {
-            audioSource.PlayOneShot(collisionSound);
+            if (Time.timeSinceLevelLoad > 3)
+            {
+                audioSource.PlayOneShot(collisionSound);
+            }
         }
     }
 

@@ -133,10 +133,9 @@ public class DetectionZone : MonoBehaviour
     /// <param name="col"></param>
     private void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.layer == 11) //Squid
+        if (col.gameObject.layer == 11) //Squid
         {
             currentlyInContact = true;
-            EffectManager.Instance.SetVignette(true);
         }
     }
 
@@ -149,9 +148,9 @@ public class DetectionZone : MonoBehaviour
         if (col.gameObject.layer == 11) //Squid
         {
             currentlyInContact = false;
-            EffectManager.Instance.SetVignette(false);
         }
     }
+
 
     #region Helper Methods
     /// <summary>

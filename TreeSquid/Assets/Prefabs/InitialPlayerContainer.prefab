@@ -902,12 +902,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135244084781696909}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3585146483385970644}
-  m_RootOrder: 2
+  m_Father: {fileID: 1401006493573702610}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &7650750635895696990
 SkinnedMeshRenderer:
@@ -998,8 +998,6 @@ Transform:
   m_LocalScale: {x: 0.6666668, y: 0.6666666, z: 0.63035065}
   m_Children:
   - {fileID: 1401006493573702610}
-  - {fileID: 8160817385018032961}
-  - {fileID: 173276558105491798}
   - {fileID: 7696135117630283379}
   m_Father: {fileID: 5700077847969155379}
   m_RootOrder: 12
@@ -1028,12 +1026,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767686676842019178}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3585146483385970644}
-  m_RootOrder: 1
+  m_Father: {fileID: 1401006493573702610}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &6694967257522047104
 SkinnedMeshRenderer:
@@ -1217,7 +1215,9 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8160817385018032961}
+  - {fileID: 173276558105491798}
   m_Father: {fileID: 3585146483385970644}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1919,7 +1919,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3585146483385970644}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7029500370938141891
 GameObject:
@@ -2459,11 +2459,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3278254558546899401}
     m_Modifications:
-    - target: {fileID: 4551985759926421472, guid: 9f59dd9ee2a63a14cbcec1189b910ef0,
-        type: 3}
-      propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
     - target: {fileID: 4551985759926421476, guid: 9f59dd9ee2a63a14cbcec1189b910ef0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2568,6 +2563,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551985759926421472, guid: 9f59dd9ee2a63a14cbcec1189b910ef0,
+        type: 3}
+      propertyPath: m_Name
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 4551985759926421499, guid: 9f59dd9ee2a63a14cbcec1189b910ef0,
         type: 3}

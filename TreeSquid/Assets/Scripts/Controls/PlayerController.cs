@@ -186,6 +186,30 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets currentlyInContact to true if the player makes contact
+    /// </summary>
+    /// <param name="col"></param>
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "DetectionZone")
+        {
+            EffectManager.Instance.SetVignette(true);
+        }
+    }
+
+    /// <summary>
+    /// Sets currentlyInContact to false if the player leaves the trigger
+    /// </summary>
+    /// <param name="col"></param>
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.tag == "DetectionZone")
+        {
+            EffectManager.Instance.SetVignette(false);
+        }
+    }
+
+    /// <summary>
     /// Players Controls
     /// </summary>
     private void PlayerControls()

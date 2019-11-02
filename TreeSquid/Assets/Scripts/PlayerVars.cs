@@ -32,7 +32,6 @@ public class PlayerVars : MonoBehaviour
     public static PlayerVars instance; //Singleton
     [HideInInspector]
     public bool isUsingMenu = false; //Check if using menu so cursor doesn't go away
-
     private bool isReseting = false;
 
     #endregion
@@ -114,6 +113,17 @@ public class PlayerVars : MonoBehaviour
             else if(comboKeyCode == "g")
             {
                 GameOver();
+            }
+            else if (comboKeyCode == "l")
+            {
+                if (SceneManager.GetActiveScene().buildIndex == 4)
+                {
+                    SceneManager.LoadScene(0);
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                }
             }
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && isUsingMenu == false)
